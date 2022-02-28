@@ -3,6 +3,6 @@
 } */
 
 body {
+    display: "flex";
     font-family: Poppins;
-    min-height: "100vh";
 }

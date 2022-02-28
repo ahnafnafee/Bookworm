@@ -28,62 +28,47 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container
-                style={{
-                    padding: 0,
-                }}
-            >
-                <CssBaseline />
-                <Box
-                    sx={
-                        {
-                            // display: "flex",
-                            // flexDirection: "column",
-                            // alignItems: "center",
-                        }
-                    }
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        minHeight: "100%",
+                    }}
                 >
-                    <Box component="form" onSubmit={handleSubmit} noValidate>
-                        <div
-                            style={{
-                                flexDirection: "column",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <div>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                />
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                />
-                            </div>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign In
-                            </Button>
-                        </div>
-                    </Box>
-                </Box>
-            </Container>
+                    <div>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                    </div>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign In
+                    </Button>
+                </div>
+            </Box>
         </ThemeProvider>
     );
 }
