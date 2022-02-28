@@ -39,36 +39,9 @@ function AuthPage(props) {
                     <SignUp />
                 </CustomTabPanel>
             </TabsUnstyled>
-            {/* <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                    <TabList onChange={handleChange} aria-label="Auth Tab">
-                        <Tab label="Login" value="1" />
-                        <Tab label="Sign Up" value="2" />
-                    </TabList>
-                </Box>
-                <TabPanel value="1">
-                    <SignIn />
-                </TabPanel>
-                <TabPanel value="2">
-                    <SignUp />
-                </TabPanel>
-            </TabContext> */}
         </Container>
     );
 }
-
-// function SignUp(props) {
-//     return (
-//         <Box sx={{ my: 4 }}>
-//             <Typography variant="h4" component="h1" gutterBottom>
-//                 Next.js example
-//             </Typography>
-//             <Button variant="contained" component={Link} noLinkStyle href="/">
-//                 Go to the main page
-//             </Button>
-//         </Box>
-//     );
-// }
 
 export async function getServerSideProps(context) {
     const res = await fetch("https://api.github.com/repos/vercel/next.js");
