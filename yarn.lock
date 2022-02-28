@@ -1164,6 +1164,11 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
+formik-mui@^4.0.0-alpha.3:
+  version "4.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/formik-mui/-/formik-mui-4.0.0-alpha.3.tgz#faca4b439c0653a8a33be97772da50709f0aa8c8"
+  integrity sha512-a696XpNIYulBd3LcwPt1+3BqtArdA/1hZryxMXT9azwucNwMcnnpVMR10yn6Qycd7eT//qv8V+r1XTBn0X8S1w==
+
 formik@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.9.tgz#8594ba9c5e2e5cf1f42c5704128e119fc46232d0"

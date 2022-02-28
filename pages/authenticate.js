@@ -17,6 +17,7 @@ import {
     CustomTabPanel,
     CustomTabsList,
 } from "../components/CustomTab";
+import Image from "next/image";
 
 function AuthPage(props) {
     const [value, setValue] = React.useState("1");
@@ -27,6 +28,27 @@ function AuthPage(props) {
 
     return (
         <Container>
+            <Head>
+                <title>Authenticate - Bookworm</title>
+            </Head>
+            <div
+                style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    marginTop: 80,
+                    marginBottom: 50,
+                }}
+            >
+                <Image
+                    alt="Mountains"
+                    src="/images/bookworm-logo.png"
+                    layout="responsive"
+                    width={"200"}
+                    height={"30vh"}
+                    objectFit="contain"
+                />
+            </div>
             <TabsUnstyled defaultValue={0}>
                 <CustomTabsList>
                     <CustomTab>Sign In</CustomTab>
@@ -50,4 +72,5 @@ export async function getServerSideProps(context) {
         props: { stars: json.stargazers_count },
     };
 }
+
 export default AuthPage;

@@ -11,7 +11,7 @@ export default function Home() {
                 <title>Welcome to Next.js!</title>
             </Head>
             <div>Welcome to Next.js!</div>
-            <Link href="/auth">
+            <Link href="/authenticate">
                 <a>Users</a>
             </Link>
             <br />

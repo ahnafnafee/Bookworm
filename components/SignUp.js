@@ -39,6 +39,8 @@ export default function SignUp() {
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
         console.log({
+            name: data.get("name"),
+            username: data.get("username"),
             email: data.get("email"),
             password: data.get("password"),
         });
@@ -50,18 +52,11 @@ export default function SignUp() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign Up
-                    </Typography>
                     <Box
                         component="form"
                         onSubmit={handleSubmit}
@@ -87,7 +82,6 @@ export default function SignUp() {
                             label="Username"
                             name="username"
                             autoComplete="username"
-                            autoFocus
                             variant="outlined"
                         />
                         <TextField
@@ -98,7 +92,6 @@ export default function SignUp() {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                            autoFocus
                             variant="outlined"
                         />
                         <TextField
@@ -112,35 +105,16 @@ export default function SignUp() {
                             autoComplete="current-password"
                             variant="outlined"
                         />
-                        <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );
