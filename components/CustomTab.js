@@ -5,48 +5,34 @@ import TabPanelUnstyled from "@mui/base/TabPanelUnstyled";
 import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 
-const blue = {
-    50: "#F0F7FF",
-    100: "#C2E0FF",
-    200: "#80BFFF",
-    300: "#66B2FF",
-    400: "#3399FF",
-    500: "#007FFF",
-    600: "#0072E5",
-    700: "#0059B2",
-    800: "#004C99",
-    900: "#003A75",
-};
-
 export const CustomTab = styled(TabUnstyled)`
-    font-family: IBM Plex Sans, sans-serif;
+    font-family: Poppins, sans-serif;
     color: white;
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: bold;
     background-color: transparent;
     width: 100%;
-    padding: 12px 16px;
-    margin: 6px 6px;
+    padding: 10px 12px;
+    margin: 4px 4px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     display: flex;
     justify-content: center;
 
     &:hover {
-        background-color: ${blue[400]};
+        background-color: #3d3d3d;
     }
 
     &:focus {
         color: #fff;
         border-radius: 3px;
-        outline: 2px solid ${blue[200]};
         outline-offset: 2px;
     }
 
     &.${tabUnstyledClasses.selected} {
-        background-color: ${blue[50]};
-        color: ${blue[600]};
+        background-color: #fff;
+        color: #0f0f0f;
     }
 
     &.${buttonUnstyledClasses.disabled} {
@@ -63,7 +49,7 @@ export const CustomTabPanel = styled(TabPanelUnstyled)`
 
 export const CustomTabsList = styled(TabsListUnstyled)`
     min-width: 320px;
-    background-color: ${blue[500]};
+    background-color: #0f0f0f;
     border-radius: 8px;
     margin-bottom: 16px;
     display: flex;

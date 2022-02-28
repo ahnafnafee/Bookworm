@@ -27,7 +27,12 @@ function AuthPage(props) {
     };
 
     return (
-        <Container>
+        <Container
+            style={{
+                flex: 1,
+                minHeight: "100vh",
+            }}
+        >
             <Head>
                 <title>Authenticate - Bookworm</title>
             </Head>
