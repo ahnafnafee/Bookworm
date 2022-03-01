@@ -1,10 +1,5 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme();
+import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 
 export default function SignIn() {
     const handleSubmit = (event) => {
@@ -17,39 +12,35 @@ export default function SignIn() {
         });
     };
 
+    const [show, setShow] = React.useState(false);
+    const handleClick = () => setShow(!show);
+
     return (
         // <ThemeProvider theme={theme}>
-        <Box
+        <div
             style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 minHeight: "50vh",
             }}
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
+            // component="form"
+            // onSubmit={handleSubmit}
+            // noValidate
         >
             <div>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
+                <InputGroup size="md">
+                    <Input
+                        pr="4.5rem"
+                        type={show ? "text" : "password"}
+                        placeholder="Enter password"
+                    />
+                    <InputRightElement width="4.5rem">
+                        <Button h="1.75rem" size="sm" onClick={handleClick}>
+                            {show ? "Hide" : "Show"}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
             </div>
             <Button
                 type="submit"
@@ -59,7 +50,7 @@ export default function SignIn() {
             >
                 Sign In
             </Button>
-        </Box>
+        </div>
         // </ThemeProvider>
     );
 }

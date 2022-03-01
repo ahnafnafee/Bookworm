@@ -6,8 +6,11 @@ import {
     Tab,
     TabPanel,
     Flex,
+    Image,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import SignIn from "../components/SignIn";
+// import Image from "next/image";
 
 function AuthPage(props) {
     const [value, setValue] = React.useState("1");
@@ -22,34 +25,68 @@ function AuthPage(props) {
                 <title>Authenticate - Bookworm</title>
             </Head>
             <div className="flex flex-col flex-1 min-w-0">
-                <Tabs isFitted variant="unstyled">
-                    <TabList mb="1em">
-                        <Tab
-                            _selected={{
+                {/* <Image
+                    alt="Mountains"
+                    src="/images/bookworm-logo.png"
+                    layout="responsive"
+                    width={"200"}
+                    height={"30vh"}
+                    objectFit="contain"
+                /> */}
+                <Flex
+                    alignItems={"center"}
+                    justifyContent="center"
+                    className="my-11"
+                >
+                    <Image
+                        boxSize="70%"
+                        objectFit="contain"
+                        alt="Logo"
+                        src="/images/bookworm-logo.png"
+                        align={"center"}
+                    />
+                </Flex>
+                <div className="px-5">
+                    <Tabs isFitted variant="unstyled">
+                        <TabList
+                            mb="1em"
+                            style={{
+                                backgroundColor: "black",
+                                borderRadius: 8,
                                 color: "white",
-                                bg: "black",
+                                padding: 4,
+                                fontWeight: "bold",
                             }}
                         >
-                            Sign In
-                        </Tab>
-                        <Tab
-                            _selected={{
-                                color: "white",
-                                bg: "black",
-                            }}
-                        >
-                            Sign Up
-                        </Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
-                            <p>one!</p>
-                        </TabPanel>
-                        <TabPanel>
-                            <p>two!</p>
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                            <Tab
+                                _selected={{
+                                    color: "black",
+                                    bg: "white",
+                                    borderRadius: 8,
+                                }}
+                            >
+                                Sign In
+                            </Tab>
+                            <Tab
+                                _selected={{
+                                    color: "black",
+                                    bg: "white",
+                                    borderRadius: 8,
+                                }}
+                            >
+                                Sign Up
+                            </Tab>
+                        </TabList>
+                        <TabPanels flex="1 1 auto">
+                            <TabPanel padding={0} className="p-0 m-0">
+                                <SignIn />
+                            </TabPanel>
+                            <TabPanel padding={0} className="p-0 m-0">
+                                <p>two!</p>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                </div>
             </div>
         </div>
     );
