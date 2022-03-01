@@ -51,7 +51,7 @@ export default function Library() {
                 </Text>
 
                 <div
-                    className="flex flex-col flex-1 px-5 pt-2 mt-4"
+                    className="flex flex-col flex-1 px-5 pt-2 mt-1"
                     style={{
                         maxHeight: "100vh",
                         paddingBottom: 120,
@@ -64,11 +64,13 @@ export default function Library() {
                                 <div
                                     style={{
                                         padding: 10,
-                                        boxShadow:
-                                            "0 4px 14px 0 rgb(0 118 255 / 16%)",
                                         marginBottom: 16,
                                         borderRadius: 8,
                                         minHeight: 150,
+                                        borderColor:
+                                            "var(--chakra-colors-gray-300)",
+                                        borderWidth: 1,
+                                        borderStyle: "solid",
                                     }}
                                     className="flex flex-row"
                                 >

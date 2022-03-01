@@ -7,7 +7,7 @@ import * as React from "react";
 
 export default function Search() {
     return (
-        <div>
+        <div className="flex h-full w-screen">
             <div className="px-4 py-3 border-b border-gray-200">
                 <div className="flex">
                     {/* Avatar */}
