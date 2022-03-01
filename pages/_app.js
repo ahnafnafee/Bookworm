@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }) {
 
                 <footer id="footer-main" className="flex" style={footerStyle}>
                     <Link
-                        href="/authenticate"
+                        href="/library"
                         className="flex items-center justify-center w-1/3 py-5"
                     >
                         {({ isActive }) =>
@@ -81,7 +81,7 @@ function MyApp({ Component, pageProps }) {
                         }
                     </Link>
                     <Link
-                        href="/wishlist"
+                        href="/authenticate"
                         className="flex items-center justify-center w-1/3 py-5 text-gray-500"
                     >
                         {({ isActive }) =>
