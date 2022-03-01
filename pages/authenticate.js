@@ -21,11 +21,11 @@ function AuthPage(props) {
     };
 
     return (
-        <div className="flex">
+        <div className="flex h-full">
             <Head>
                 <title>Authenticate - Bookworm</title>
             </Head>
-            <div className="flex flex-col flex-1 min-w-0">
+            <div className="flex flex-col flex-1 min-w-0 h-full">
                 {/* <Image
                     alt="Mountains"
                     src="/images/bookworm-logo.png"
@@ -58,8 +58,8 @@ function AuthPage(props) {
                         books without a worry
                     </Text>
                 </Flex>
-                <div className="px-5">
-                    <Tabs isFitted variant="unstyled">
+                <div className="px-5 h-full">
+                    <Tabs className="h-full" isFitted variant="unstyled">
                         <TabList
                             mb="1em"
                             style={{
@@ -89,12 +89,12 @@ function AuthPage(props) {
                                 Sign Up
                             </Tab>
                         </TabList>
-                        <TabPanels flex="1 1 auto">
+                        <TabPanels className="h-full" flex="1 1 auto">
                             <TabPanel
                                 flex={1}
                                 padding={0}
                                 height="100%"
-                                className="p-0 m-0"
+                                className="p-0 m-0 h-full"
                             >
                                 <SignIn />
                             </TabPanel>
@@ -102,7 +102,7 @@ function AuthPage(props) {
                                 flex={1}
                                 padding={0}
                                 height="100%"
-                                className="p-0 m-0"
+                                className="p-0 m-0 h-full"
                             >
                                 <p>two!</p>
                             </TabPanel>

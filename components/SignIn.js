@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import {
+    Button,
+    Flex,
+    Input,
+    InputGroup,
+    InputRightElement,
+} from "@chakra-ui/react";
 
 export default function SignIn() {
     const handleSubmit = (event) => {
@@ -16,19 +22,7 @@ export default function SignIn() {
     const handleClick = () => setShow(!show);
 
     return (
-        // <ThemeProvider theme={theme}>
-        <div
-            // style={{
-            //     display: "flex",
-            //     flexDirection: "column",
-            //     justifyContent: "space-between",
-            //     // minHeight: "50vh",
-            // }}
-            className="flex flex-col flex-1 min-w-0 justify-between"
-            // component="form"
-            // onSubmit={handleSubmit}
-            // noValidate
-        >
+        <div className="flex flex-col flex-1 justify-between">
             <div>
                 <InputGroup className="my-4" size="md">
                     <Input
@@ -52,21 +46,22 @@ export default function SignIn() {
                     </InputRightElement>
                 </InputGroup>
             </div>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                style={{
-                    backgroundColor: "black",
-                    borderRadius: 16,
-                    color: "white",
-                    height: 60,
-                }}
-            >
-                Sign In
-            </Button>
+            <div className="flex flex-col flex-1 mt-12">
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    style={{
+                        backgroundColor: "black",
+                        borderRadius: 8,
+                        color: "white",
+                        height: 60,
+                    }}
+                >
+                    Sign In
+                </Button>
+            </div>
         </div>
-        // </ThemeProvider>
     );
 }

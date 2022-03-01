@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }) {
                     style={{
                         position: "absolute",
                         bottom: 0,
+                        zIndex: 10,
                         left: 0,
                         width: "100%",
                         boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
