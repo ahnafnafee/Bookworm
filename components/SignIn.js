@@ -18,24 +18,34 @@ export default function SignIn() {
     return (
         // <ThemeProvider theme={theme}>
         <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                minHeight: "50vh",
-            }}
+            // style={{
+            //     display: "flex",
+            //     flexDirection: "column",
+            //     justifyContent: "space-between",
+            //     // minHeight: "50vh",
+            // }}
+            className="flex flex-col flex-1 min-w-0 justify-between"
             // component="form"
             // onSubmit={handleSubmit}
             // noValidate
         >
             <div>
-                <InputGroup size="md">
+                <InputGroup className="my-4" size="md">
                     <Input
+                        height={50}
+                        pr="4.5rem"
+                        type={"email"}
+                        placeholder="Email"
+                    />
+                </InputGroup>
+                <InputGroup className="my-4" size="md">
+                    <Input
+                        height={50}
                         pr="4.5rem"
                         type={show ? "text" : "password"}
-                        placeholder="Enter password"
+                        placeholder="Password"
                     />
-                    <InputRightElement width="4.5rem">
+                    <InputRightElement height={50} width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
                             {show ? "Hide" : "Show"}
                         </Button>
@@ -47,6 +57,12 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                style={{
+                    backgroundColor: "black",
+                    borderRadius: 16,
+                    color: "white",
+                    height: 60,
+                }}
             >
                 Sign In
             </Button>

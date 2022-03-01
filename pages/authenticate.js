@@ -7,6 +7,7 @@ import {
     TabPanel,
     Flex,
     Image,
+    Text,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import SignIn from "../components/SignIn";
@@ -37,6 +38,7 @@ function AuthPage(props) {
                     alignItems={"center"}
                     justifyContent="center"
                     className="my-11"
+                    direction={"column"}
                 >
                     <Image
                         boxSize="70%"
@@ -45,6 +47,16 @@ function AuthPage(props) {
                         src="/images/bookworm-logo.png"
                         align={"center"}
                     />
+                    <Text
+                        className="mt-8"
+                        height={20}
+                        align={"center"}
+                        as="i"
+                        noOfLines={[2, 3]}
+                    >
+                        Search and store all your <br />
+                        books without a worry
+                    </Text>
                 </Flex>
                 <div className="px-5">
                     <Tabs isFitted variant="unstyled">
@@ -78,10 +90,20 @@ function AuthPage(props) {
                             </Tab>
                         </TabList>
                         <TabPanels flex="1 1 auto">
-                            <TabPanel padding={0} className="p-0 m-0">
+                            <TabPanel
+                                flex={1}
+                                padding={0}
+                                height="100%"
+                                className="p-0 m-0"
+                            >
                                 <SignIn />
                             </TabPanel>
-                            <TabPanel padding={0} className="p-0 m-0">
+                            <TabPanel
+                                flex={1}
+                                padding={0}
+                                height="100%"
+                                className="p-0 m-0"
+                            >
                                 <p>two!</p>
                             </TabPanel>
                         </TabPanels>
