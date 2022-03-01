@@ -114,7 +114,12 @@ export default function SignUp() {
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
             </div>
-            <div className="flex flex-col flex-1 mt-12">
+            <div
+                className="flex flex-col flex-1 mt-12"
+                style={{
+                    paddingBottom: 120,
+                }}
+            >
                 <Button
                     type="submit"
                     variant="contained"
