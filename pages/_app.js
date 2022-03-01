@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         position: "fixed",
         bottom: 0,
         zIndex: 10,
-        backgroundColor: "white",
+        backgroundColor: "black",
         left: 0,
         width: "100%",
         boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
@@ -45,20 +45,21 @@ function MyApp({ Component, pageProps }) {
                     >
                         {({ isActive }) =>
                             isActive ? (
-                                <div className="flex flex-col items-center justify-center">
-                                    <Book size="35" color="#000" />
+                                <div className="flex flex-col items-center justify-center pb-2">
+                                    <Book size="35" color="#fff" />
                                     <div
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
                                             marginTop: 35,
+                                            color: "white",
                                         }}
                                     >
                                         Library
                                     </div>
                                 </div>
                             ) : (
-                                <BookOutline size="35" color="#000" />
+                                <BookOutline size="35" color="#fff" />
                             )
                         }
                     </Link>
@@ -68,20 +69,21 @@ function MyApp({ Component, pageProps }) {
                     >
                         {({ isActive }) =>
                             isActive ? (
-                                <div className="flex flex-col items-center justify-center">
-                                    <Search size="35" color="#000" />
+                                <div className="flex flex-col items-center justify-center pb-2">
+                                    <Search size="35" color="#fff" />
                                     <div
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
                                             marginTop: 35,
+                                            color: "white",
                                         }}
                                     >
                                         Search
                                     </div>
                                 </div>
                             ) : (
-                                <SearchOutline size="35" color="#000" />
+                                <SearchOutline size="35" color="#fff" />
                             )
                         }
                     </Link>
@@ -91,20 +93,21 @@ function MyApp({ Component, pageProps }) {
                     >
                         {({ isActive }) =>
                             isActive ? (
-                                <div className="flex flex-col items-center justify-center">
-                                    <Heart size="35" color="#000" />
+                                <div className="flex flex-col items-center justify-center pb-2">
+                                    <Heart size="35" color="#fff" />
                                     <div
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
                                             marginTop: 35,
+                                            color: "white",
                                         }}
                                     >
                                         Wishlist
                                     </div>
                                 </div>
                             ) : (
-                                <HeartOutline size="35" color="#000" />
+                                <HeartOutline size="35" color="#fff" />
                             )
                         }
                     </Link>
