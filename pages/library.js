@@ -34,7 +34,7 @@ export default function Library() {
     console.log(books);
 
     return (
-        <div className="flex h-full">
+        <div className="flex h-full w-screen">
             <Head>
                 <title>Library - Bookworm</title>
             </Head>
@@ -90,7 +90,7 @@ export default function Library() {
                                             {data.volumeInfo.title}
                                         </Text>
                                         <Text fontSize="sm" noOfLines={1}>
-                                            {data.volumeInfo.authors}
+                                            by {data.volumeInfo.authors}
                                         </Text>
                                         <Text
                                             fontWeight={"light"}
