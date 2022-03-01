@@ -5,7 +5,7 @@ import * as React from "react";
 // import Button from "@mui/material/Button";
 // import BottomNav from "../components/BottomNav";
 
-export default function Home() {
+export default function Search() {
     return (
         <div>
             <div className="px-4 py-3 border-b border-gray-200">

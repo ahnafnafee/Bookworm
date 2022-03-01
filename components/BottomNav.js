@@ -13,28 +13,6 @@ import {
 const BottomNav = (props) => {
     const router = useRouter();
     const [activeTabs, setActiveTabs] = useState(props.name);
-    // useEffect(() => {
-    //     switch (activeTabs) {
-    //         case "library":
-    //             // router.push("/authenticate");
-    //             console.log("library");
-    //             // router.push("/");
-    //             break;
-    //         case "search":
-    //             // router.push("/");
-    //             console.log("search");
-    //             // router.push("/authenticate");
-    //             break;
-    //         case "wishlist":
-    //             console.log("wishlist");
-    //             // router.push("/authenticate");
-    //             break;
-    //         default:
-    //             console.log("default");
-    //             // router.push("/");
-    //             break;
-    //     }
-    // }, [activeTabs, router]);
 
     return (
         <div className={`${styles.bottomNav}`}>
