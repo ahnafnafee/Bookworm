@@ -11,7 +11,7 @@ export function BookDetails({
     isLibrary = false,
 }) {
     const extractThumbnail = ({ imageLinks }) => {
-        const DEFAULT_THUMBNAIL = "/vercel.svg";
+        const DEFAULT_THUMBNAIL = "https://via.placeholder.com/180x280";
         if (!imageLinks || !imageLinks.thumbnail) {
             return DEFAULT_THUMBNAIL;
         }
@@ -50,6 +50,7 @@ export function BookDetails({
                         borderRadius={8}
                         marginRight={4}
                         className="self-start"
+                        fallbackSrc="https://via.placeholder.com/180x280"
                     />
                     <div className="flex flex-col justify-between">
                         <Text fontWeight={"medium"} fontSize="lg" noOfLines={2}>

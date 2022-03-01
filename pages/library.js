@@ -11,7 +11,7 @@ export default function Library() {
 
     React.useEffect(() => {
         fetch(
-            "https://www.googleapis.com/books/v1/volumes?q=The Last Wish&maxResults=40"
+            "https://www.googleapis.com/books/v1/volumes?q=Dune&maxResults=40"
         ).then((response) =>
             response.json().then((data) => setBooks(data.items))
         );
@@ -25,7 +25,7 @@ export default function Library() {
                 <title>Library - Bookworm</title>
             </Head>
             <div className="flex flex-col flex-1 justify-start">
-                <div className="flex flex-row justify-between items-center content-center my-7 px-5">
+                <div className="flex flex-row justify-between items-center h-16 content-center my-7 px-5">
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
                         Welcome Alyssa
                     </Text>
