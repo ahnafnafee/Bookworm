@@ -10,6 +10,7 @@ import {
 } from "react-ionicons";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { isMobile, isSafari } from "react-device-detect";
 
 const theme = createTheme();
 
@@ -21,7 +22,17 @@ function MyApp({ Component, pageProps }) {
         backgroundColor: "black",
         left: 0,
         width: "100%",
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
         boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
+    };
+
+    const getMarginTop = () => {
+        if (isSafari) {
+            return 20;
+        } else {
+            return 34;
+        }
     };
 
     return (
@@ -51,7 +62,7 @@ function MyApp({ Component, pageProps }) {
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
-                                            marginTop: 35,
+                                            marginTop: getMarginTop(),
                                             color: "white",
                                         }}
                                     >
@@ -75,7 +86,7 @@ function MyApp({ Component, pageProps }) {
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
-                                            marginTop: 35,
+                                            marginTop: getMarginTop(),
                                             color: "white",
                                         }}
                                     >
@@ -99,7 +110,7 @@ function MyApp({ Component, pageProps }) {
                                         style={{
                                             position: "absolute",
                                             fontSize: "0.75rem",
-                                            marginTop: 35,
+                                            marginTop: getMarginTop(),
                                             color: "white",
                                         }}
                                     >
