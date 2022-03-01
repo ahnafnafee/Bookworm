@@ -1,8 +1,19 @@
 import * as React from "react";
 import Head from "next/head";
-import { Image, Text } from "@chakra-ui/react";
+import { IconButton, Image, Text } from "@chakra-ui/react";
 import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 import Rating from "@mui/material/Rating";
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+} from "@chakra-ui/react";
+import { EllipsisVertical, Trash } from "react-ionicons";
 
 export default function Library() {
     const [books, setBooks] = React.useState([]);
@@ -72,46 +83,66 @@ export default function Library() {
                                         borderWidth: 1,
                                         borderStyle: "solid",
                                     }}
-                                    className="flex flex-row"
+                                    className="flex flex-row justify-between"
                                 >
-                                    <Image
-                                        boxSize="24%"
-                                        objectFit="contain"
-                                        alt="Logo"
-                                        src={extractThumbnail(volumeInfo)}
-                                        align={"center"}
-                                        borderRadius={8}
-                                        marginRight={4}
-                                    />
-                                    <div className="flex flex-col justify-between">
-                                        <Text
-                                            fontWeight={"medium"}
-                                            fontSize="lg"
-                                            noOfLines={2}
-                                        >
-                                            {volumeInfo.title}
-                                        </Text>
-                                        <Text fontSize="sm" noOfLines={1}>
-                                            by {volumeInfo.authors}
-                                        </Text>
-                                        <Text
-                                            fontWeight={"light"}
-                                            as="i"
-                                            fontSize="sm"
-                                            noOfLines={1}
-                                        >
-                                            {volumeInfo.categories === undefined
-                                                ? "Others"
-                                                : volumeInfo.categories}
-                                        </Text>
-                                        <Rating
-                                            size="small"
-                                            defaultValue={2.5}
-                                            precision={0.1}
-                                            value={volumeInfo.averageRating}
-                                            readOnly
+                                    <div className="flex flex-row">
+                                        <Image
+                                            width={"30%"}
+                                            objectFit="contain"
+                                            alt="Logo"
+                                            src={extractThumbnail(volumeInfo)}
+                                            align={"center"}
+                                            borderRadius={8}
+                                            marginRight={4}
+                                            className="self-start"
                                         />
+                                        <div className="flex flex-col justify-between">
+                                            <Text
+                                                fontWeight={"medium"}
+                                                fontSize="lg"
+                                                noOfLines={2}
+                                            >
+                                                {volumeInfo.title}
+                                            </Text>
+                                            <Text fontSize="sm" noOfLines={1}>
+                                                by {volumeInfo.authors}
+                                            </Text>
+                                            <Text
+                                                fontWeight={"light"}
+                                                as="i"
+                                                fontSize="sm"
+                                                noOfLines={1}
+                                            >
+                                                {volumeInfo.categories ===
+                                                undefined
+                                                    ? "Others"
+                                                    : volumeInfo.categories}
+                                            </Text>
+                                            <Rating
+                                                size="small"
+                                                defaultValue={2.5}
+                                                precision={0.1}
+                                                value={volumeInfo.averageRating}
+                                                readOnly
+                                            />
+                                        </div>
                                     </div>
+                                    <Menu autoSelect={false}>
+                                        <MenuButton
+                                            as={IconButton}
+                                            aria-label="Options"
+                                            icon={
+                                                <EllipsisVertical
+                                                    size="20"
+                                                    color="#000"
+                                                />
+                                            }
+                                            variant="outline"
+                                        />
+                                        <MenuList>
+                                            <MenuItem>Delete</MenuItem>
+                                        </MenuList>
+                                    </Menu>
                                 </div>
                             </div>
                         ))}

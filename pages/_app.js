@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
 
     if (isMobile) {
         return (
-            <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
+            <div className="border-0 border-none border-transparent flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
                 <div
                     className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm"
                     style={{ minHeight: "100vh", minHeight: "100vw" }}
