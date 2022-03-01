@@ -51,6 +51,9 @@ export function BookDetails({
                         marginRight={4}
                         className="self-start"
                         fallbackSrc="https://via.placeholder.com/180x280"
+                        style={{
+                            width: 90,
+                        }}
                     />
                     <div className="flex flex-col justify-between">
                         <Text fontWeight={"medium"} fontSize="lg" noOfLines={2}>

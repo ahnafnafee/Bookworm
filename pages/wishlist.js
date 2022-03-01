@@ -5,19 +5,10 @@ import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 
-export default function Wishlist() {
+function Wishlist({ data }) {
     const router = useRouter();
-    const [books, setBooks] = React.useState([]);
 
-    React.useEffect(() => {
-        fetch(
-            "https://www.googleapis.com/books/v1/volumes?q=The Last Wish&maxResults=40"
-        ).then((response) =>
-            response.json().then((data) => setBooks(data.items))
-        );
-    }, []);
-
-    console.log(books);
+    console.log(data);
 
     return (
         <div className="flex h-full w-screen">
@@ -25,7 +16,7 @@ export default function Wishlist() {
                 <title>Wishlist - Bookworm</title>
             </Head>
             <div className="flex flex-col flex-1 justify-start">
-                <div className="flex flex-row justify-between items-center h-16 content-center my-7 px-5">
+                <div className="flex flex-row justify-between items-center h-16 content-center mt-7 px-5">
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
                         Wishlist
                     </Text>
@@ -39,8 +30,8 @@ export default function Wishlist() {
                         overflowY: "scroll",
                     }}
                 >
-                    {books &&
-                        books.map(({ id, volumeInfo }) => (
+                    {data &&
+                        data.map(({ id, volumeInfo }) => (
                             <BookDetails
                                 key={id}
                                 id={id}
@@ -65,3 +56,13 @@ export default function Wishlist() {
         </div>
     );
 }
+
+Wishlist.getInitialProps = async () => {
+    const response = await fetch(
+        "https://www.googleapis.com/books/v1/volumes?q=Dan Brown&maxResults=40"
+    );
+    const json = await response.json();
+    return { data: json.items };
+};
+
+export default Wishlist;
