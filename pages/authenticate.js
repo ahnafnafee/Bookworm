@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
 // import Image from "next/image";
 
 function AuthPage(props) {
@@ -25,15 +26,7 @@ function AuthPage(props) {
             <Head>
                 <title>Authenticate - Bookworm</title>
             </Head>
-            <div className="flex flex-col flex-1 min-w-0 h-full">
-                {/* <Image
-                    alt="Mountains"
-                    src="/images/bookworm-logo.png"
-                    layout="responsive"
-                    width={"200"}
-                    height={"30vh"}
-                    objectFit="contain"
-                /> */}
+            <div className="flex flex-col flex-1 min-w-0">
                 <Flex
                     alignItems={"center"}
                     justifyContent="center"
@@ -58,8 +51,8 @@ function AuthPage(props) {
                         books without a worry
                     </Text>
                 </Flex>
-                <div className="px-5 h-full">
-                    <Tabs className="h-full" isFitted variant="unstyled">
+                <div className="px-5">
+                    <Tabs isFitted variant="unstyled">
                         <TabList
                             mb="1em"
                             style={{
@@ -67,7 +60,6 @@ function AuthPage(props) {
                                 borderRadius: 8,
                                 color: "white",
                                 padding: 4,
-                                fontWeight: "bold",
                             }}
                         >
                             <Tab
@@ -75,7 +67,9 @@ function AuthPage(props) {
                                     color: "black",
                                     bg: "white",
                                     borderRadius: 8,
+                                    fontWeight: "bold",
                                 }}
+                                fontWeight={"bold"}
                             >
                                 Sign In
                             </Tab>
@@ -85,6 +79,7 @@ function AuthPage(props) {
                                     bg: "white",
                                     borderRadius: 8,
                                 }}
+                                fontWeight={"bold"}
                             >
                                 Sign Up
                             </Tab>
@@ -104,7 +99,7 @@ function AuthPage(props) {
                                 height="100%"
                                 className="p-0 m-0 h-full"
                             >
-                                <p>two!</p>
+                                <SignUp />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
