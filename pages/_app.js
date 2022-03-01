@@ -9,6 +9,9 @@ import {
     HeartOutline,
 } from "react-ionicons";
 import { ChakraProvider } from "@chakra-ui/react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
 
 function MyApp({ Component, pageProps }) {
     const footerStyle = {
@@ -28,9 +31,11 @@ function MyApp({ Component, pageProps }) {
                 style={{ minHeight: "100vh", minHeight: "100vw" }}
             >
                 <main className="flex flex-1 overflow-scroll">
-                    <ChakraProvider>
-                        <Component {...pageProps} />
-                    </ChakraProvider>
+                    <ThemeProvider theme={theme}>
+                        <ChakraProvider>
+                            <Component {...pageProps} />
+                        </ChakraProvider>
+                    </ThemeProvider>
                 </main>
 
                 <footer id="footer-main" className="flex" style={footerStyle}>

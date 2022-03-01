@@ -2,13 +2,14 @@ import * as React from "react";
 import Head from "next/head";
 import { Image, Text } from "@chakra-ui/react";
 import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
+import Rating from "@mui/material/Rating";
 
 export default function Library() {
     const [books, setBooks] = React.useState([]);
 
     React.useEffect(() => {
         fetch(
-            "https://www.googleapis.com/books/v1/volumes?q=a&maxResults=40"
+            "https://www.googleapis.com/books/v1/volumes?q=The Last Wish&maxResults=40"
         ).then((response) =>
             response.json().then((data) => setBooks(data.items))
         );
@@ -102,6 +103,15 @@ export default function Library() {
                                                 ? "Others"
                                                 : data.volumeInfo.categories}
                                         </Text>
+                                        <Rating
+                                            size="small"
+                                            defaultValue={2.5}
+                                            precision={0.1}
+                                            value={
+                                                data.volumeInfo.averageRating
+                                            }
+                                            readOnly
+                                        />
                                     </div>
                                 </div>
                             </div>
