@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Text } from "@chakra-ui/react";
 import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 
-export default function Library() {
+export default function Settings() {
     const [posts, setPosts] = React.useState([]);
     const [hasMore, setHasMore] = React.useState(true);
 
@@ -42,8 +42,7 @@ export default function Library() {
                     className="flex flex-col flex-1"
                     style={{
                         maxHeight: "100vh",
-                        marginBottom: 120,
-                        paddingBottom: 120,
+                        paddingBottom: 90,
                         overflowY: "scroll",
                     }}
                 >
