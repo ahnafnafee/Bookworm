@@ -2,7 +2,7 @@
     <img src="public/images/bookworm-logo.png" alt="Logo"  width="400px" height="auto" />
 </p>
 
-<h1 align="center">Bookworm</h1>
+# ‍
 
 <p align="center">
 Bookworm is a mobile-targeted website where book lovers can search and store books they have read in their library. They will also be able to wish-list books they want to read. It’s an all-in-one book tracker.
