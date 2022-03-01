@@ -1,59 +1,95 @@
 import * as React from "react";
 import Head from "next/head";
-import { Text } from "@chakra-ui/react";
-import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
+import {
+    Button,
+    FormControl,
+    FormLabel,
+    IconButton,
+    Input,
+    InputGroup,
+    Text,
+} from "@chakra-ui/react";
+import { ArrowBack } from "react-ionicons";
+import { useRouter } from "next/router";
 
 export default function Settings() {
-    const [posts, setPosts] = React.useState([]);
-    const [hasMore, setHasMore] = React.useState(true);
+    const router = useRouter();
 
-    React.useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/todos?_limit=30").then(
-            (response) => response.json().then((data) => setPosts(data))
-        );
-    }, []);
-
-    const getMorePost = async () => {
-        const res = await fetch(
-            `https://jsonplaceholder.typicode.com/todos?_start=${posts.length}&_limit=10`
-        );
-        const newPosts = await res.json();
-        setPosts((post) => [...post, ...newPosts]);
+    const values = {
+        name: "Alyssa",
+        email: "alyssa@gmail.com",
     };
 
     return (
-        <div className="flex h-full">
+        <div className="flex h-full w-screen">
             <Head>
-                <title>Library - Bookworm</title>
+                <title>Settings - Bookworm</title>
             </Head>
-            <div className="flex flex-col flex-1 justify-start px-5">
-                <div className="flex flex-row justify-between items-center content-center my-7">
-                    <Text fontSize="2xl" fontWeight={"extrabold"}>
-                        Welcome Alyssa
-                    </Text>
-                    <Avatar size="sm" bg="gray.600" onClick={() => null} />
+            <div className="flex flex-col flex-1 justify-start">
+                <div className="flex flex-row justify-between items-center content-center my-7 px-5">
+                    <IconButton
+                        aria-label="wishlist"
+                        icon={<ArrowBack size="35" color="#000" />}
+                        variant="outline"
+                        onClick={() => {
+                            console.log("Go Back");
+                            router.back();
+                        }}
+                    />
                 </div>
 
-                <Text fontSize="xl" fontWeight={"semibold"}>
-                    Library
+                <Text className="px-5" fontSize="xl" fontWeight={"semibold"}>
+                    Settings
                 </Text>
 
+                <div className="flex flex-col flex-1 px-5 pt-2 mt-1">
+                    <FormControl className="my-4" size="md">
+                        <FormLabel htmlFor="name">Name</FormLabel>
+                        <InputGroup size="md">
+                            <Input
+                                height={50}
+                                pr="4.5rem"
+                                type={"name"}
+                                placeholder="Name"
+                                readOnly
+                                value={values.name}
+                            />
+                        </InputGroup>
+                    </FormControl>
+                    <FormControl className="my-4" size="md">
+                        <FormLabel htmlFor="email">Email address</FormLabel>
+                        <InputGroup size="md">
+                            <Input
+                                height={50}
+                                pr="4.5rem"
+                                type={"email"}
+                                placeholder="Email"
+                                readOnly
+                                value={values.email}
+                            />
+                        </InputGroup>
+                    </FormControl>
+                </div>
                 <div
-                    className="flex flex-col flex-1"
+                    className="flex flex-col flex-1 mt-12 px-5"
                     style={{
-                        maxHeight: "100vh",
-                        paddingBottom: 90,
-                        overflowY: "scroll",
+                        paddingBottom: 120,
                     }}
                 >
-                    {posts.map((data) => (
-                        <div key={data.id}>
-                            <div className="back">
-                                <strong> {data.id}</strong> {data.title}
-                            </div>
-                            {data.completed}
-                        </div>
-                    ))}
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        style={{
+                            backgroundColor: "black",
+                            borderRadius: 8,
+                            color: "white",
+                            height: 60,
+                        }}
+                        onClick={() => console.log("Logout")}
+                    >
+                        Sign Out
+                    </Button>
                 </div>
             </div>
             <style jsx>
@@ -70,12 +106,3 @@ export default function Settings() {
         </div>
     );
 }
-
-export const getStaticProps = async () => {
-    const data = await fetch(
-        "https://jsonplaceholder.typicode.com/todos?_limit=10"
-    ).then((response) => response.json());
-    return {
-        props: { data },
-    };
-};

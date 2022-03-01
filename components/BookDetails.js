@@ -56,7 +56,7 @@ export function BookDetails({
                             {volumeInfo.title}
                         </Text>
                         <Text fontSize="sm" noOfLines={1}>
-                            by {volumeInfo.authors}
+                            by {volumeInfo.authors[0]}
                         </Text>
                         <Text
                             fontWeight={"light"}
@@ -81,7 +81,7 @@ export function BookDetails({
                     {isSearch ? (
                         <>
                             <IconButton
-                                aria-label="Add to friends"
+                                aria-label="wishlist"
                                 icon={<HeartOutline size="35" color="#000" />}
                                 variant="outline"
                                 onClick={() =>
@@ -89,7 +89,7 @@ export function BookDetails({
                                 }
                             />
                             <IconButton
-                                aria-label="Add to friends"
+                                aria-label="add-to-library"
                                 icon={<AddOutline size="35" color="#000" />}
                                 variant="outline"
                                 onClick={() =>
@@ -106,7 +106,7 @@ export function BookDetails({
                             <Menu autoSelect={false}>
                                 <MenuButton
                                     as={IconButton}
-                                    aria-label="Options"
+                                    aria-label="options"
                                     icon={
                                         <EllipsisVertical
                                             size="20"

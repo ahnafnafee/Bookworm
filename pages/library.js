@@ -3,8 +3,10 @@ import Head from "next/head";
 import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
+import { useRouter } from "next/router";
 
 export default function Library() {
+    const router = useRouter();
     const [books, setBooks] = React.useState([]);
 
     React.useEffect(() => {
@@ -27,7 +29,14 @@ export default function Library() {
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
                         Welcome Alyssa
                     </Text>
-                    <Avatar size="sm" bg="black" onClick={() => null} />
+                    <Avatar
+                        size="sm"
+                        bg="black"
+                        onClick={() => {
+                            router.push("/settings");
+                            console.log("Settings");
+                        }}
+                    />
                 </div>
 
                 <Text className="px-5" fontSize="xl" fontWeight={"semibold"}>
@@ -45,6 +54,7 @@ export default function Library() {
                     {books &&
                         books.map(({ id, volumeInfo }) => (
                             <BookDetails
+                                key={id}
                                 id={id}
                                 volumeInfo={volumeInfo}
                                 isLibrary={true}
@@ -67,12 +77,3 @@ export default function Library() {
         </div>
     );
 }
-
-export const getStaticProps = async () => {
-    const data = await fetch(
-        "https://jsonplaceholder.typicode.com/todos?_limit=10"
-    ).then((response) => response.json());
-    return {
-        props: { data },
-    };
-};
