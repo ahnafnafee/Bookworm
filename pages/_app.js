@@ -11,20 +11,32 @@ import {
 import { ChakraProvider, Image, Text } from "@chakra-ui/react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isMobile, isSafari } from "react-device-detect";
+import { useRouter } from "next/router";
 
 const theme = createTheme();
 
 function MyApp({ Component, pageProps }) {
-    const footerStyle = {
-        position: "fixed",
-        bottom: 0,
-        zIndex: 10,
-        backgroundColor: "black",
-        left: 0,
-        width: "100%",
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
+    const router = useRouter();
+
+    const tabRoutes = ["/library", "/search", "/wishlist"];
+
+    const footerStyle = () => {
+        if (tabRoutes.includes(router.route))
+            return {
+                position: "fixed",
+                bottom: 0,
+                zIndex: 10,
+                backgroundColor: "black",
+                left: 0,
+                width: "100%",
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
+                boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
+            };
+
+        return {
+            display: "none",
+        };
     };
 
     if (isMobile) {
@@ -45,7 +57,7 @@ function MyApp({ Component, pageProps }) {
                     <footer
                         id="footer-main"
                         className="flex"
-                        style={footerStyle}
+                        style={footerStyle()}
                     >
                         <Link
                             href="/library"
@@ -92,7 +104,7 @@ function MyApp({ Component, pageProps }) {
                             }
                         </Link>
                         <Link
-                            href="/authenticate"
+                            href="/wishlist"
                             className="flex items-center justify-center w-1/3 py-4 text-gray-500"
                         >
                             {({ isActive }) =>

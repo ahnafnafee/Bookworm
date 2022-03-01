@@ -86,7 +86,10 @@ export default function Settings() {
                             color: "white",
                             height: 60,
                         }}
-                        onClick={() => console.log("Logout")}
+                        onClick={() => {
+                            router.push("/authenticate");
+                            console.log("Logout");
+                        }}
                     >
                         Sign Out
                     </Button>

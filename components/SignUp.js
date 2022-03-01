@@ -11,8 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
 
 export default function SignUp() {
+    const router = useRouter();
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
 
@@ -47,6 +49,7 @@ export default function SignUp() {
                 .required("Required"),
         }),
         async onSubmit(values, formikActions) {
+            router.push("/library");
             console.log(values);
         },
     });
