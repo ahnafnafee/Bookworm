@@ -24,10 +24,10 @@ function MyApp({ Component, pageProps }) {
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
             <div
-                className="relative flex flex-col flex-1 w-full overflow-hidden bg-white shadow xs:max-w-sm"
+                className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm"
                 style={{ minHeight: "100vh", minHeight: "100vw" }}
             >
-                <main className="flex-1 overflow-scroll">
+                <main className="flex flex-1 overflow-scroll">
                     <ChakraProvider>
                         <Component {...pageProps} />
                     </ChakraProvider>

@@ -8,8 +8,6 @@
     },
     "dependencies": {
         "@chakra-ui/react": "^1.8.6",
-        "@emotion/react": "11",
-        "@emotion/styled": "11",
         "@tailwindcss/ui": "^0.3.1",
         "date-fns": "^2.15.0",
         "faker": "^4.1.0",
@@ -26,7 +24,8 @@
         "styled-components": "^5.3.3",
         "swr": "^0.2.3",
         "tailwindcss": "^1.5.1",
-        "yup": "^0.32.11"
+        "yup": "^0.32.11",
+        "react-rating": "latest"
     },
     "devDependencies": {
         "eslint": "8.10.0",
