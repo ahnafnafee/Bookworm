@@ -43,7 +43,7 @@ export default function Library() {
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
                         Welcome Alyssa
                     </Text>
-                    <Avatar size="sm" bg="gray.600" onClick={() => null} />
+                    <Avatar size="sm" bg="black" onClick={() => null} />
                 </div>
 
                 <Text className="px-5" fontSize="xl" fontWeight={"semibold"}>
@@ -59,8 +59,8 @@ export default function Library() {
                     }}
                 >
                     {books &&
-                        books.map((data) => (
-                            <div key={data.id}>
+                        books.map(({ id, volumeInfo }) => (
+                            <div key={id}>
                                 <div
                                     style={{
                                         padding: 10,
@@ -78,7 +78,7 @@ export default function Library() {
                                         boxSize="24%"
                                         objectFit="contain"
                                         alt="Logo"
-                                        src={extractThumbnail(data.volumeInfo)}
+                                        src={extractThumbnail(volumeInfo)}
                                         align={"center"}
                                         borderRadius={8}
                                         marginRight={4}
@@ -89,10 +89,10 @@ export default function Library() {
                                             fontSize="lg"
                                             noOfLines={2}
                                         >
-                                            {data.volumeInfo.title}
+                                            {volumeInfo.title}
                                         </Text>
                                         <Text fontSize="sm" noOfLines={1}>
-                                            by {data.volumeInfo.authors}
+                                            by {volumeInfo.authors}
                                         </Text>
                                         <Text
                                             fontWeight={"light"}
@@ -100,18 +100,15 @@ export default function Library() {
                                             fontSize="sm"
                                             noOfLines={1}
                                         >
-                                            {data.volumeInfo.categories ===
-                                            undefined
+                                            {volumeInfo.categories === undefined
                                                 ? "Others"
-                                                : data.volumeInfo.categories}
+                                                : volumeInfo.categories}
                                         </Text>
                                         <Rating
                                             size="small"
                                             defaultValue={2.5}
                                             precision={0.1}
-                                            value={
-                                                data.volumeInfo.averageRating
-                                            }
+                                            value={volumeInfo.averageRating}
                                             readOnly
                                         />
                                     </div>

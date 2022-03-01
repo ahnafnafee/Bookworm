@@ -9,6 +9,9 @@ module.exports = {
             screens: {
                 xs: "480px",
             },
+            borderWidth: {
+                16: "16px",
+            },
         },
     },
     plugins: [require("@tailwindcss/ui")],
