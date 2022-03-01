@@ -8,22 +8,19 @@ import {
     Heart,
     HeartOutline,
 } from "react-ionicons";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function MyApp({ Component, pageProps }) {
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
             <div
                 className="relative flex flex-col flex-1 w-full overflow-hidden bg-white shadow xs:max-w-sm"
-                style={{ maxHeight: "100vh" }}
+                style={{ maxHeight: "100vh", maxWidth: "100vw" }}
             >
-                <header className="flex items-center px-4 py-3 border-b">
-                    <p className="ml-6 text-lg font-extrabold">
-                        {Component.headerTitle}
-                    </p>
-                </header>
-
                 <main className="flex-1 overflow-scroll">
-                    <Component {...pageProps} />
+                    <ChakraProvider>
+                        <Component {...pageProps} />
+                    </ChakraProvider>
                 </main>
 
                 <footer
@@ -33,7 +30,7 @@ function MyApp({ Component, pageProps }) {
                     }}
                 >
                     <Link
-                        href="/"
+                        href="/authenticate"
                         className="flex items-center justify-center w-1/3 py-5"
                     >
                         {({ isActive }) =>
@@ -103,8 +100,7 @@ function MyApp({ Component, pageProps }) {
                     </Link>
                 </footer>
                 <style jsx global>{`
-                    html,
-                    body {
+                    * {
                         padding: 0;
                         margin: 0;
                         font-family: Poppins, Helvetica Neue, sans-serif;
