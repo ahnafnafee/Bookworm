@@ -12,7 +12,7 @@ import {
 import Head from "next/head";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-// import Image from "next/image";
+import { NextSeo } from "next-seo";
 
 function AuthPage(props) {
     const [value, setValue] = React.useState("1");
@@ -23,9 +23,16 @@ function AuthPage(props) {
 
     return (
         <div className="flex h-full">
-            <Head>
-                <title>Authenticate - Bookworm</title>
-            </Head>
+            <NextSeo
+                title="Authenticate"
+                description="Authenticates users ot use Bookworm"
+                canonical="https://github.com/ahnafnafee"
+                twitter={{
+                    handle: "@handle",
+                    site: "@site",
+                    cardType: "summary_large_image",
+                }}
+            />
             <div className="flex flex-col flex-1 min-w-0">
                 <Flex
                     alignItems={"center"}

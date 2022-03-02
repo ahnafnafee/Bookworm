@@ -4,6 +4,7 @@ import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 function Wishlist({ data }) {
     const router = useRouter();
@@ -12,14 +13,29 @@ function Wishlist({ data }) {
 
     return (
         <div className="flex h-full w-screen">
-            <Head>
-                <title>Wishlist - Bookworm</title>
-            </Head>
+            <NextSeo
+                title="Wishlist"
+                description="Allows the user to wishlist for their favorite books"
+                canonical="https://github.com/ahnafnafee"
+                twitter={{
+                    handle: "@handle",
+                    site: "@site",
+                    cardType: "summary_large_image",
+                }}
+            />
             <div className="flex flex-col flex-1 justify-start">
                 <div className="flex flex-row justify-between items-center h-16 content-center mt-7 px-5">
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
                         Wishlist
                     </Text>
+                    <Avatar
+                        size="sm"
+                        bg="black"
+                        onClick={() => {
+                            router.push("/settings");
+                            console.log("Settings");
+                        }}
+                    />
                 </div>
 
                 <div
@@ -42,17 +58,6 @@ function Wishlist({ data }) {
                         ))}
                 </div>
             </div>
-            <style jsx>
-                {`
-                    .back {
-                        padding: 10px;
-                        background-color: dodgerblue;
-                        color: white;
-                        margin-top: 10px;
-                        margin-bottom: 10px;
-                    }
-                `}
-            </style>
         </div>
     );
 }

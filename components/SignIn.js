@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 export default function SignIn() {
     const router = useRouter();
     const [show, setShow] = React.useState(false);
+    const [isFocused, setIsFocused] = React.useState(false);
     const handleClick = () => setShow(!show);
 
     const {
@@ -52,6 +53,10 @@ export default function SignIn() {
         },
     });
 
+    const toggleFocus = () => {
+        setIsFocused(!isFocused);
+    };
+
     const isDisabled = () => {
         return !(isValid && dirty) || isSubmitting;
     };
@@ -72,6 +77,7 @@ export default function SignIn() {
                             onChange={handleChange("email")}
                             autoComplete={"email"}
                             value={values.email}
+                            onFocus={toggleFocus}
                         />
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
@@ -88,6 +94,7 @@ export default function SignIn() {
                             placeholder="Password"
                             onChange={handleChange("password")}
                             value={values.password}
+                            onFocus={toggleFocus}
                         />
                         <InputRightElement height={50} width="4.5rem">
                             <Button h="1.75rem" size="sm" onClick={handleClick}>

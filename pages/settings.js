@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBack } from "react-ionicons";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 export default function Settings() {
     const router = useRouter();
@@ -22,9 +23,16 @@ export default function Settings() {
 
     return (
         <div className="flex h-full w-screen">
-            <Head>
-                <title>Settings - Bookworm</title>
-            </Head>
+            <NextSeo
+                title="Settings"
+                description="Allows access to settings for the logged-in user"
+                canonical="https://github.com/ahnafnafee"
+                twitter={{
+                    handle: "@handle",
+                    site: "@site",
+                    cardType: "summary_large_image",
+                }}
+            />
             <div className="flex flex-col flex-1 justify-start">
                 <div className="flex flex-row justify-between items-center content-center my-7 px-5">
                     <IconButton

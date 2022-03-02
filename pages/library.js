@@ -4,6 +4,7 @@ import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 function Library({ data }) {
     const router = useRouter();
@@ -12,9 +13,16 @@ function Library({ data }) {
 
     return (
         <div className="flex h-full w-screen">
-            <Head>
-                <title>Library - Bookworm</title>
-            </Head>
+            <NextSeo
+                title="Library"
+                description="Allows the user to view their favorite books in their library"
+                canonical="https://github.com/ahnafnafee"
+                twitter={{
+                    handle: "@handle",
+                    site: "@site",
+                    cardType: "summary_large_image",
+                }}
+            />
             <div className="flex flex-col flex-1 justify-start">
                 <div className="flex flex-row justify-between items-center h-16 content-center my-7 px-5">
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
@@ -54,17 +62,6 @@ function Library({ data }) {
                         ))}
                 </div>
             </div>
-            <style jsx>
-                {`
-                    .back {
-                        padding: 10px;
-                        background-color: dodgerblue;
-                        color: white;
-                        margin-top: 10px;
-                        margin-bottom: 10px;
-                    }
-                `}
-            </style>
         </div>
     );
 }

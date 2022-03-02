@@ -12,23 +12,13 @@ import { ChakraProvider, Image, Text } from "@chakra-ui/react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isMobile, isSafari } from "react-device-detect";
 import { useRouter } from "next/router";
+import { DefaultSeo } from "next-seo";
 
 const theme = createTheme();
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
     const tabRoutes = ["/library", "/search", "/wishlist"];
-    const footerStyle = {
-        position: "fixed",
-        bottom: 0,
-        zIndex: 10,
-        backgroundColor: "black",
-        left: 0,
-        width: "100%",
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
-    };
 
     if (isMobile) {
         return (
@@ -40,6 +30,35 @@ function MyApp({ Component, pageProps }) {
                     <main className="flex flex-1 overflow-scroll">
                         <ThemeProvider theme={theme}>
                             <ChakraProvider>
+                                <DefaultSeo
+                                    titleTemplate="%s | Bookworm"
+                                    defaultTitle="Bookworm"
+                                    defaultOpenGraphImageHeight={600}
+                                    defaultOpenGraphImageWidth={800}
+                                    openGraph={{
+                                        type: "website",
+                                        locale: "en_US",
+                                        url: "https://github.com/ahnafnafee",
+                                        site_name: "Bookworm",
+                                        profile: {
+                                            firstName: "Ahnaf",
+                                            lastName: "An Nafee",
+                                        },
+                                        images: [
+                                            {
+                                                url: "images/bookworm-seo-image.png",
+                                                width: 800,
+                                                height: 600,
+                                                alt: "Bookworm Alt",
+                                            },
+                                        ],
+                                    }}
+                                    twitter={{
+                                        handle: "@handle",
+                                        site: "@site",
+                                        cardType: "summary_large_image",
+                                    }}
+                                />
                                 <Component {...pageProps} />
                             </ChakraProvider>
                         </ThemeProvider>
@@ -146,5 +165,17 @@ function MyApp({ Component, pageProps }) {
         </div>
     );
 }
+
+export const footerStyle = {
+    position: "fixed",
+    bottom: 0,
+    zIndex: 10,
+    backgroundColor: "black",
+    left: 0,
+    width: "100%",
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",
+};
 
 export default MyApp;
