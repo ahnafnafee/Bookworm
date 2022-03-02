@@ -21,6 +21,9 @@ import {
     PopoverArrow,
     PopoverCloseButton,
 } from "@chakra-ui/react";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function Search() {
     const inputLeftRef = React.useRef();
@@ -33,19 +36,14 @@ function Search() {
     const [value, setValue] = React.useState("");
     const [data, setData] = React.useState([]);
 
-    React.useEffect(() => {
-        loadBestSellers();
-    }, []);
+    const { data: bookData, error } = useSWR(
+        `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4`,
+        fetcher
+    );
 
-    const loadBestSellers = async () => {
-        await fetch(
-            `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4`
-        ).then((response) =>
-            response.json().then((data) => {
-                setData(data.results.books);
-            })
-        );
-    };
+    React.useEffect(() => {
+        if (bookData) setData(bookData.results.books);
+    }, [bookData]);
 
     const toggleFocus = () => {
         setIsFocused(!isFocused);

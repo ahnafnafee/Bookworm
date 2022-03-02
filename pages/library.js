@@ -5,24 +5,21 @@ import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function Library() {
     const router = useRouter();
     const [data, setData] = React.useState([]);
+    const { data: bookData, error } = useSWR(
+        `https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15`,
+        fetcher
+    );
 
     React.useEffect(() => {
-        loadLibrary();
-    }, []);
-
-    const loadLibrary = async () => {
-        await fetch(
-            `https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15`
-        ).then((response) =>
-            response.json().then((data) => {
-                setData(data.items);
-            })
-        );
-    };
+        if (bookData) setData(bookData.items);
+    }, [bookData]);
 
     return (
         <div className="flex h-full w-screen">
