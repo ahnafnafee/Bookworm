@@ -1,4 +1,4 @@
-import "tailwindcss/tailwind.css";
+import "../styles.css";
 import { Link } from "../components/Link";
 import {
     Book,

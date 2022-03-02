@@ -9,8 +9,6 @@ import { NextSeo } from "next-seo";
 function Library({ data }) {
     const router = useRouter();
 
-    console.log(data);
-
     return (
         <div className="flex h-full w-screen">
             <NextSeo
@@ -66,12 +64,16 @@ function Library({ data }) {
     );
 }
 
-Library.getInitialProps = async () => {
+export async function getStaticProps() {
     const response = await fetch(
-        "https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=40"
+        "https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15"
     );
     const json = await response.json();
-    return { data: json.items };
-};
+    return {
+        props: {
+            data: json.items,
+        },
+    };
+}
 
 export default Library;

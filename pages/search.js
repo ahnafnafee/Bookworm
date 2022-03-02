@@ -42,7 +42,7 @@ function Search({ data }) {
         if (event.key === "Enter") {
             if (value.length > 0) {
                 await fetch(
-                    `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=30`
+                    `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=15`
                 ).then((response) =>
                     response.json().then((data) => {
                         setBooks(data.items);
@@ -88,8 +88,6 @@ function Search({ data }) {
             document.getElementById("footer-main").classList.remove("hidden");
         }
     }, [isFocused]);
-
-    console.log(data);
 
     return (
         <div className="flex h-full w-screen">
@@ -309,12 +307,16 @@ const categories = [
     "Mystery",
 ];
 
-Search.getInitialProps = async () => {
+export async function getStaticProps() {
     const response = await fetch(
         "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4"
     );
     const json = await response.json();
-    return { data: json.results.books };
-};
+    return {
+        props: {
+            data: json.results.books,
+        },
+    };
+}
 
 export default Search;
