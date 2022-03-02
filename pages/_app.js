@@ -173,6 +173,7 @@ export const footerStyle = {
     backgroundColor: "black",
     left: 0,
     width: "100%",
+    height: "8vh",
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     boxShadow: "0 4px 14px 0 rgb(0 118 255 / 39%)",

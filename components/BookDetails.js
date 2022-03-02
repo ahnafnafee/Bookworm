@@ -60,7 +60,7 @@ export function BookDetails({
                             {volumeInfo.title}
                         </Text>
                         <Text fontSize="sm" noOfLines={1}>
-                            by {volumeInfo.authors[0]}
+                            by {volumeInfo.authors}
                         </Text>
                         <Text
                             fontWeight={"light"}
