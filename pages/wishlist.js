@@ -6,8 +6,23 @@ import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 
-function Wishlist({ data }) {
+function Wishlist() {
     const router = useRouter();
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        loadWishlist();
+    }, []);
+
+    const loadWishlist = async () => {
+        await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=Dan Brown&maxResults=15`
+        ).then((response) =>
+            response.json().then((data) => {
+                setData(data.items);
+            })
+        );
+    };
 
     return (
         <div className="flex h-full w-screen">
@@ -58,18 +73,6 @@ function Wishlist({ data }) {
             </div>
         </div>
     );
-}
-
-export async function getStaticProps() {
-    const response = await fetch(
-        "https://www.googleapis.com/books/v1/volumes?q=Dan Brown&maxResults=15"
-    );
-    const json = await response.json();
-    return {
-        props: {
-            data: json.items,
-        },
-    };
 }
 
 export default Wishlist;

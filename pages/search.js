@@ -22,7 +22,7 @@ import {
     PopoverCloseButton,
 } from "@chakra-ui/react";
 
-function Search({ data }) {
+function Search() {
     const inputLeftRef = React.useRef();
     const inputRightRef = React.useRef();
     const inputRef = React.useRef();
@@ -31,6 +31,21 @@ function Search({ data }) {
     const [searched, setSearched] = React.useState(false);
     const [books, setBooks] = React.useState([]);
     const [value, setValue] = React.useState("");
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        loadBestSellers();
+    }, []);
+
+    const loadBestSellers = async () => {
+        await fetch(
+            `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4`
+        ).then((response) =>
+            response.json().then((data) => {
+                setData(data.results.books);
+            })
+        );
+    };
 
     const toggleFocus = () => {
         setIsFocused(!isFocused);
@@ -306,17 +321,5 @@ const categories = [
     "Adult",
     "Mystery",
 ];
-
-export async function getStaticProps() {
-    const response = await fetch(
-        "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4"
-    );
-    const json = await response.json();
-    return {
-        props: {
-            data: json.results.books,
-        },
-    };
-}
 
 export default Search;

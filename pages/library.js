@@ -6,8 +6,23 @@ import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 
-function Library({ data }) {
+function Library() {
     const router = useRouter();
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        loadLibrary();
+    }, []);
+
+    const loadLibrary = async () => {
+        await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15`
+        ).then((response) =>
+            response.json().then((data) => {
+                setData(data.items);
+            })
+        );
+    };
 
     return (
         <div className="flex h-full w-screen">
@@ -62,18 +77,6 @@ function Library({ data }) {
             </div>
         </div>
     );
-}
-
-export async function getStaticProps() {
-    const response = await fetch(
-        "https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15"
-    );
-    const json = await response.json();
-    return {
-        props: {
-            data: json.items,
-        },
-    };
 }
 
 export default Library;
