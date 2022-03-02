@@ -1,18 +1,32 @@
-<p align="center">
-    <img src="public/images/bookworm-logo.png" alt="Logo"  width="400px" height="auto" />
-</p>
+# <img src="public/images/bookworm-logo.png" alt="Logo"  width="300px" height="auto" />
 
-# ‍
+### 📚 Find, search and store books from Google Books by [Ahnaf An Nafee](https://github.com/ahnafnafee)
 
-<p align="center">
-Bookworm is a mobile-targeted website where book lovers can search and store books they have read in their library. They will also be able to wish-list books they want to read. It’s an all-in-one book tracker.
-</p>
+<div align="center">
+  <br>
+  <img src="public/images/screenshot-1.png" alt="marcdown">
+  <br>
+</div>
 
-## Stack
+### Features :sparkles:
+
+:heart: **Minimal**: Minimalist UI for the most essential features
+
+:electric_plug: **Real-time search**: Search books by name, author, genre etc...
+
+---
+
+## Built with
 
 -   **FrontEnd**: _Next.js_
 -   **BackEnd**: _Flask_
 -   **Database**: _SQLite_
+
+---
+
+<p>
+Bookworm is a mobile-targeted website where book lovers can search and store books they have read in their library. They will also be able to wish-list books they want to read. It’s an all-in-one book tracker.
+</p>
 
 ## Users
 

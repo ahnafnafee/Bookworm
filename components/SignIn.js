@@ -78,6 +78,7 @@ export default function SignIn() {
                             autoComplete={"email"}
                             value={values.email}
                             onFocus={toggleFocus}
+                            onBlur={toggleFocus}
                         />
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
@@ -95,6 +96,7 @@ export default function SignIn() {
                             onChange={handleChange("password")}
                             value={values.password}
                             onFocus={toggleFocus}
+                            onBlur={toggleFocus}
                         />
                         <InputRightElement height={50} width="4.5rem">
                             <Button h="1.75rem" size="sm" onClick={handleClick}>

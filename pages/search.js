@@ -11,12 +11,15 @@ import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import { Search as SearchIcon } from "react-ionicons";
+import { Search as SearchIcon, Close } from "react-ionicons";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function Search() {
     const inputLeftRef = React.useRef();
     const inputRightRef = React.useRef();
     const [isFocused, setIsFocused] = React.useState(false);
+    const [show, setShow] = React.useState(false);
 
     const toggleFocus = () => {
         setIsFocused(!isFocused);
@@ -27,6 +30,37 @@ export default function Search() {
             console.log("Queried");
         }
     };
+
+    const {
+        touched,
+        errors,
+        getFieldProps,
+        validateForm,
+        isValid,
+        dirty,
+        isSubmitting,
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        resetForm,
+        values,
+    } = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            query: "",
+        },
+        validationSchema: Yup.object().shape({
+            query: Yup.string().required("Required"),
+        }),
+        async onSubmit(values, formikActions) {
+            console.log(values);
+        },
+    });
+
+    React.useEffect(() => {
+        if (values.query.length > 0) setShow(true);
+        else setShow(false);
+    }, [values.query.length]);
 
     React.useEffect(() => {
         if (isFocused) {
@@ -49,7 +83,7 @@ export default function Search() {
                 }}
             />
             <div className="flex flex-col flex-1 justify-start">
-                <div className="flex flex-col justify-between items-center h-16 content-center mt-7 px-5">
+                <div className="flex flex-col justify-between h-16 mt-7 px-5">
                     <InputGroup>
                         <InputLeftElement
                             ref={inputLeftRef}
@@ -68,28 +102,29 @@ export default function Search() {
                             onKeyDown={handleSearch}
                             placeholder="Search"
                             onBlur={toggleFocus}
+                            onChange={handleChange("query")}
+                            value={values.query}
                         />
-                        <InputRightElement
-                            ref={inputRightRef}
-                            w="fit-content"
-                            pe={4}
-                            h="full"
-                            color="grey.600"
-                        >
-                            {/* <MinusIcon /> */}
-                        </InputRightElement>
+                        {show && (
+                            <InputRightElement
+                                ref={inputRightRef}
+                                w="fit-content"
+                                pe={4}
+                                h="full"
+                                color="grey.600"
+                                onClick={() => {
+                                    resetForm();
+                                }}
+                            >
+                                <Close size="20" color="#000" />
+                            </InputRightElement>
+                        )}
                     </InputGroup>
-                    <Text fontSize="2xl" fontWeight={"extrabold"}>
-                        Wishlist
-                    </Text>
-                    <Avatar
-                        size="sm"
-                        bg="black"
-                        onClick={() => {
-                            // router.push("/settings");
-                            console.log("Settings");
-                        }}
-                    />
+                    <div className="flex flex-col mt-4">
+                        <Text fontSize="xl" fontWeight={"bold"}>
+                            Category
+                        </Text>
+                    </div>
                 </div>
 
                 <div className="flex flex-col flex-1 px-5 pt-2 mt-1"></div>
