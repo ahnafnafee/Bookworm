@@ -1,6 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
 import {
+    Button,
     Input,
     InputGroup,
     InputLeftElement,
@@ -14,6 +15,7 @@ import { NextSeo } from "next-seo";
 import { Search as SearchIcon, Close } from "react-ionicons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import randomColor from "randomcolor";
 
 export default function Search() {
     const inputLeftRef = React.useRef();
@@ -24,36 +26,6 @@ export default function Search() {
     const toggleFocus = () => {
         setIsFocused(!isFocused);
     };
-
-    const categories = [
-        "Fiction",
-        "Poetry",
-        "Fantasy",
-        "Romance",
-        "Adult",
-        "Anthologies",
-        "Art",
-        "Audiobooks",
-        "Biographies",
-        "Body",
-        "Business",
-        "Children",
-        "Comics",
-        "Contemporary",
-        "Cooking",
-        "Crime",
-        "Engineering",
-        "Entertainment",
-        "Food",
-        "General",
-        "Health",
-        "History",
-        "Horror",
-        "Investing",
-        "Literary",
-        "Literature",
-        "Manga",
-    ];
 
     const {
         touched,
@@ -144,11 +116,50 @@ export default function Search() {
                             </InputRightElement>
                         )}
                     </InputGroup>
-                    <div className="flex flex-col mt-4">
-                        <Text fontSize="xl" fontWeight={"bold"}>
-                            Category
-                        </Text>
-                    </div>
+                    {/* {(!isFocused || show) && (
+                        <>
+                            <div className="flex flex-col mt-4">
+                                <Text fontSize="xl" fontWeight={"bold"}>
+                                    Category
+                                </Text>
+                                <div className="grid grid-rows-2 grid-flow-col gap-4 justify-around items-center mt-4">
+                                    {categories.map((item) => (
+                                        <div key={item}>
+                                            <Button
+                                                className="flex flex-1 flex-col justify-around items-center"
+                                                style={{
+                                                    height: 120,
+                                                    width: 100,
+                                                    backgroundColor:
+                                                        randomColor({
+                                                            luminosity: "dark",
+                                                            format: "rgb",
+                                                            hue: "monochrome",
+                                                        }),
+                                                    borderRadius: 8,
+                                                    boxShadow:
+                                                        "0 4px 14px 0 rgb(0 118 255 / 8%)",
+                                                }}
+                                                onClick={() =>
+                                                    console.log(
+                                                        `Searching ${item}`
+                                                    )
+                                                }
+                                            >
+                                                <Text
+                                                    color={"white"}
+                                                    fontWeight={"bold"}
+                                                    align={"center"}
+                                                >
+                                                    {item}
+                                                </Text>
+                                            </Button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )} */}
                 </div>
 
                 <div className="flex flex-col flex-1 px-5 pt-2 mt-1"></div>
@@ -156,3 +167,12 @@ export default function Search() {
         </div>
     );
 }
+
+const categories = [
+    "Fiction",
+    "Poetry",
+    "Fantasy",
+    "Romance",
+    "Adult",
+    "Mystery",
+];
