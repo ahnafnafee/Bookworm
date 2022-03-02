@@ -25,11 +25,35 @@ export default function Search() {
         setIsFocused(!isFocused);
     };
 
-    const handleSearch = (event) => {
-        if (event.key === "Enter") {
-            console.log("Queried");
-        }
-    };
+    const categories = [
+        "Fiction",
+        "Poetry",
+        "Fantasy",
+        "Romance",
+        "Adult",
+        "Anthologies",
+        "Art",
+        "Audiobooks",
+        "Biographies",
+        "Body",
+        "Business",
+        "Children",
+        "Comics",
+        "Contemporary",
+        "Cooking",
+        "Crime",
+        "Engineering",
+        "Entertainment",
+        "Food",
+        "General",
+        "Health",
+        "History",
+        "Horror",
+        "Investing",
+        "Literary",
+        "Literature",
+        "Manga",
+    ];
 
     const {
         touched,
@@ -99,7 +123,7 @@ export default function Search() {
                             ps={12}
                             variant="outline"
                             onFocus={toggleFocus}
-                            onKeyDown={handleSearch}
+                            onKeyDown={handleSubmit}
                             placeholder="Search"
                             onBlur={toggleFocus}
                             onChange={handleChange("query")}

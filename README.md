@@ -4,7 +4,7 @@
 
 <div align="center">
   <br>
-  <img src="public/images/screenshot-1.png" alt="marcdown">
+  <img src="public/images/screenshot-1.png" alt="screenshot">
   <br>
 </div>
 
