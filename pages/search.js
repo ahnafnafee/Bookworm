@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { NextSeo } from "next-seo";
-import { Search as SearchIcon, Close } from "react-ionicons";
+import { IoSearch as SearchIcon, IoClose as Close } from "react-icons/io5";
 import randomColor from "randomcolor";
 import {
     Popover,
@@ -22,6 +22,7 @@ import {
     PopoverCloseButton,
 } from "@chakra-ui/react";
 import useSWR from "swr";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -126,7 +127,7 @@ function Search() {
                                 h="full"
                                 color="grey.600"
                             >
-                                <SearchIcon size="20" color="#000" />
+                                <SearchIcon size={20} color="#000" />
                             </InputLeftElement>
                             <Input
                                 ref={inputRef}
@@ -151,7 +152,7 @@ function Search() {
                                         setValue("");
                                     }}
                                 >
-                                    <Close size="20" color="#000" />
+                                    <Close size={20} color="#000" />
                                 </InputRightElement>
                             )}
                         </InputGroup>
@@ -169,7 +170,7 @@ function Search() {
                                                 <Button
                                                     className="flex flex-1 flex-col justify-around items-center"
                                                     style={{
-                                                        height: 100,
+                                                        height: 60,
                                                         width: 100,
                                                         backgroundColor:
                                                             randomColor({
@@ -212,7 +213,7 @@ function Search() {
                                 <div
                                     className="grid grid-cols-3 gap-4 justify-between mt-4 px-5"
                                     style={{
-                                        maxHeight: "46vh",
+                                        maxHeight: "60vh",
                                         paddingBottom: 120,
                                         overflowY: "scroll",
                                     }}

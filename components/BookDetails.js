@@ -1,8 +1,14 @@
 import * as React from "react";
 import { IconButton, Image, Text } from "@chakra-ui/react";
-import Rating from "@mui/material/Rating";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { EllipsisVertical, HeartOutline, AddOutline } from "react-ionicons";
+import Rating from "react-rating";
+import {
+    IoEllipsisVertical as EllipsisVertical,
+    IoHeartOutline as HeartOutline,
+    IoAddOutline as AddOutline,
+    IoStar as Star,
+    IoStarOutline as StarOutline,
+} from "react-icons/io5";
 
 export function BookDetails({
     id,
@@ -73,11 +79,12 @@ export function BookDetails({
                                 : volumeInfo.categories}
                         </Text>
                         <Rating
-                            size="small"
-                            defaultValue={2.5}
-                            precision={0.1}
-                            value={volumeInfo.averageRating}
-                            readOnly
+                            readonly
+                            size={10}
+                            initialRating={volumeInfo.averageRating}
+                            emptySymbol={<StarOutline size={16} color="#000" />}
+                            fullSymbol={<Star size={16} color="#000" />}
+                            fractions={2}
                         />
                     </div>
                 </div>
@@ -86,7 +93,7 @@ export function BookDetails({
                         <>
                             <IconButton
                                 aria-label="wishlist"
-                                icon={<HeartOutline size="35" color="#000" />}
+                                icon={<HeartOutline size={20} color="#000" />}
                                 variant="outline"
                                 onClick={() =>
                                     console.log("Wishlisted", id, volumeInfo)
@@ -94,7 +101,7 @@ export function BookDetails({
                             />
                             <IconButton
                                 aria-label="add-to-library"
-                                icon={<AddOutline size="35" color="#000" />}
+                                icon={<AddOutline size={20} color="#000" />}
                                 variant="outline"
                                 onClick={() =>
                                     console.log(
@@ -113,7 +120,7 @@ export function BookDetails({
                                     aria-label="options"
                                     icon={
                                         <EllipsisVertical
-                                            size="20"
+                                            size={20}
                                             color="#000"
                                         />
                                     }

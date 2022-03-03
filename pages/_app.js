@@ -1,89 +1,59 @@
 import "../styles.css";
 import { Link } from "../components/Link";
 import {
-    Book,
-    BookOutline,
-    Search,
-    SearchOutline,
-    Heart,
-    HeartOutline,
-} from "react-ionicons";
+    IoBook as Book,
+    IoBookOutline as BookOutline,
+    IoSearch as Search,
+    IoSearchOutline as SearchOutline,
+    IoHeart as Heart,
+    IoHeartOutline as HeartOutline,
+} from "react-icons/io5";
 import { ChakraProvider, Image, Text } from "@chakra-ui/react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { isMobile, isSafari } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
-import NProgress from "nprogress";
-import { useEffect, useState } from "react";
-
-const theme = createTheme();
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
     const tabRoutes = ["/library", "/search", "/wishlist"];
 
-    useEffect(() => {
-        const handleStart = (url) => {
-            console.log(`Loading: ${url}`);
-            NProgress.start();
-        };
-        const handleStop = () => {
-            NProgress.done();
-        };
-
-        router.events.on("routeChangeStart", handleStart);
-        router.events.on("routeChangeComplete", handleStop);
-        router.events.on("routeChangeError", handleStop);
-
-        return () => {
-            router.events.off("routeChangeStart", handleStart);
-            router.events.off("routeChangeComplete", handleStop);
-            router.events.off("routeChangeError", handleStop);
-        };
-    }, [router]);
-
     if (isMobile) {
         return (
             <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
-                <div
-                    className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm"
-                    style={{ minHeight: "100vh", minHeight: "100vw" }}
-                >
+                <div className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm">
                     <main className="flex flex-1 overflow-scroll">
-                        <ThemeProvider theme={theme}>
-                            <ChakraProvider>
-                                <DefaultSeo
-                                    titleTemplate="%s | Bookworm"
-                                    defaultTitle="Bookworm"
-                                    defaultOpenGraphImageHeight={600}
-                                    defaultOpenGraphImageWidth={800}
-                                    openGraph={{
-                                        type: "website",
-                                        locale: "en_US",
-                                        url: "https://github.com/ahnafnafee",
-                                        site_name: "Bookworm",
-                                        profile: {
-                                            firstName: "Ahnaf",
-                                            lastName: "An Nafee",
+                        <ChakraProvider>
+                            <DefaultSeo
+                                titleTemplate="%s | Bookworm"
+                                defaultTitle="Bookworm"
+                                defaultOpenGraphImageHeight={600}
+                                defaultOpenGraphImageWidth={800}
+                                openGraph={{
+                                    type: "website",
+                                    locale: "en_US",
+                                    url: "https://github.com/ahnafnafee",
+                                    site_name: "Bookworm",
+                                    profile: {
+                                        firstName: "Ahnaf",
+                                        lastName: "An Nafee",
+                                    },
+                                    images: [
+                                        {
+                                            url: "images/bookworm-seo-image.png",
+                                            width: 800,
+                                            height: 600,
+                                            alt: "Bookworm Alt",
                                         },
-                                        images: [
-                                            {
-                                                url: "images/bookworm-seo-image.png",
-                                                width: 800,
-                                                height: 600,
-                                                alt: "Bookworm Alt",
-                                            },
-                                        ],
-                                    }}
-                                    twitter={{
-                                        handle: "@handle",
-                                        site: "@site",
-                                        cardType: "summary_large_image",
-                                    }}
-                                />
-                                <Component {...pageProps} />
-                            </ChakraProvider>
-                        </ThemeProvider>
+                                    ],
+                                }}
+                                twitter={{
+                                    handle: "@handle",
+                                    site: "@site",
+                                    cardType: "summary_large_image",
+                                }}
+                            />
+                            <Component {...pageProps} />
+                        </ChakraProvider>
                     </main>
 
                     {tabRoutes.includes(router.route) && (
@@ -99,7 +69,7 @@ function MyApp({ Component, pageProps }) {
                                 {({ isActive }) =>
                                     isActive ? (
                                         <div className="flex flex-col items-center justify-around">
-                                            <Book size="35" color="#fff" />
+                                            <Book size={20} color="#fff" />
                                             <div
                                                 style={{
                                                     fontSize: "0.75rem",
@@ -110,7 +80,7 @@ function MyApp({ Component, pageProps }) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <BookOutline size="35" color="#fff" />
+                                        <BookOutline size={20} color="#fff" />
                                     )
                                 }
                             </Link>
@@ -121,7 +91,7 @@ function MyApp({ Component, pageProps }) {
                                 {({ isActive }) =>
                                     isActive ? (
                                         <div className="flex flex-col items-center justify-around">
-                                            <Search size="35" color="#fff" />
+                                            <Search size={20} color="#fff" />
                                             <div
                                                 style={{
                                                     fontSize: "0.75rem",
@@ -132,7 +102,7 @@ function MyApp({ Component, pageProps }) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <SearchOutline size="35" color="#fff" />
+                                        <SearchOutline size={20} color="#fff" />
                                     )
                                 }
                             </Link>
@@ -143,7 +113,7 @@ function MyApp({ Component, pageProps }) {
                                 {({ isActive }) =>
                                     isActive ? (
                                         <div className="flex flex-col items-center justify-around">
-                                            <Heart size="35" color="#fff" />
+                                            <Heart size={20} color="#fff" />
                                             <div
                                                 style={{
                                                     fontSize: "0.75rem",
@@ -154,7 +124,7 @@ function MyApp({ Component, pageProps }) {
                                             </div>
                                         </div>
                                     ) : (
-                                        <HeartOutline size="35" color="#fff" />
+                                        <HeartOutline size={20} color="#fff" />
                                     )
                                 }
                             </Link>

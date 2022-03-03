@@ -1,5 +1,4 @@
 import * as React from "react";
-import Head from "next/head";
 import {
     Button,
     FormControl,
@@ -9,7 +8,7 @@ import {
     InputGroup,
     Text,
 } from "@chakra-ui/react";
-import { ArrowBack } from "react-ionicons";
+import { IoArrowBack as ArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 
@@ -37,7 +36,7 @@ export default function Settings() {
                 <div className="flex flex-row justify-between items-center content-center my-7 px-5">
                     <IconButton
                         aria-label="wishlist"
-                        icon={<ArrowBack size="35" color="#000" />}
+                        icon={<ArrowBack size={20} color="#000" />}
                         variant="outline"
                         onClick={() => {
                             console.log("Go Back");
