@@ -108,33 +108,7 @@ function Search() {
             <NextSeo
                 locale="en_US"
                 title="Search"
-                description="Allows the user to search for their favorite books"
-                openGraph={{
-                    type: "website",
-                    locale: "en_US",
-                    url: "https://bookworm-app.vercel.app/search",
-                    description:
-                        "📚 Allows the user to search for their favorite books",
-                    site_name: "Bookworm",
-                    profile: {
-                        firstName: "Ahnaf",
-                        lastName: "An Nafee",
-                    },
-                    images: [
-                        {
-                            url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
-                            width: 800,
-                            height: 600,
-                            alt: "Bookworm Alt",
-                            type: "image/png",
-                        },
-                    ],
-                }}
-                twitter={{
-                    handle: "@handle",
-                    site: "@site",
-                    cardType: "summary_large_image",
-                }}
+                description="📚 Allows the user to search for their favorite books"
             />
             <div className="flex flex-col flex-1 justify-start">
                 <div className="flex flex-col justify-between h-16 mt-7">

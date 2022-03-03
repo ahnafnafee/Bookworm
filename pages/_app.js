@@ -9,7 +9,6 @@ import {
     IoHeartOutline as HeartOutline,
 } from "react-icons/io5";
 import { ChakraProvider, Image, Text } from "@chakra-ui/react";
-import { isMobile } from "react-device-detect";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { useEffect } from "react";
@@ -55,102 +54,80 @@ function MyApp({ Component, pageProps }) {
                                 cardType: "summary_large_image",
                             }}
                         />
-                        {isMobile ? (
-                            <ChakraProvider>
-                                <Component {...pageProps} />
-                            </ChakraProvider>
-                        ) : (
-                            <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base bg-white xs:py-8">
-                                <Image
-                                    width={200}
-                                    objectFit="contain"
-                                    alt="Logo"
-                                    src="/images/bookworm-logo.png"
-                                    align={"center"}
-                                />
-                                <Text fontSize="20px" marginTop={20}>
-                                    is <Text as={"i"}>not supported</Text> in
-                                    Desktop yet
-                                </Text>
-                            </div>
-                        )}
+                        <ChakraProvider>
+                            <Component {...pageProps} />
+                        </ChakraProvider>
                     </>
                 </main>
 
-                {isMobile && tabRoutes.includes(router.route) && (
-                    <footer
-                        id="footer-main"
-                        className="flex"
-                        style={footerStyle}
+                <footer id="footer-main" className="flex" style={footerStyle}>
+                    <Link
+                        href="/library"
+                        className="flex items-center justify-center w-1/3 py-4"
                     >
-                        <Link
-                            href="/library"
-                            className="flex items-center justify-center w-1/3 py-4"
-                        >
-                            {({ isActive }) =>
-                                isActive ? (
-                                    <div className="flex flex-col items-center justify-around">
-                                        <Book size={20} color="#fff" />
-                                        <div
-                                            style={{
-                                                fontSize: "0.75rem",
-                                                color: "white",
-                                            }}
-                                        >
-                                            Library
-                                        </div>
+                        {({ isActive }) =>
+                            isActive ? (
+                                <div className="flex flex-col items-center justify-around">
+                                    <Book size={20} color="#fff" />
+                                    <div
+                                        style={{
+                                            fontSize: "0.75rem",
+                                            color: "white",
+                                        }}
+                                    >
+                                        Library
                                     </div>
-                                ) : (
-                                    <BookOutline size={20} color="#fff" />
-                                )
-                            }
-                        </Link>
-                        <Link
-                            href="/search"
-                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                        >
-                            {({ isActive }) =>
-                                isActive ? (
-                                    <div className="flex flex-col items-center justify-around">
-                                        <Search size={20} color="#fff" />
-                                        <div
-                                            style={{
-                                                fontSize: "0.75rem",
-                                                color: "white",
-                                            }}
-                                        >
-                                            Search
-                                        </div>
+                                </div>
+                            ) : (
+                                <BookOutline size={20} color="#fff" />
+                            )
+                        }
+                    </Link>
+                    <Link
+                        href="/search"
+                        className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                    >
+                        {({ isActive }) =>
+                            isActive ? (
+                                <div className="flex flex-col items-center justify-around">
+                                    <Search size={20} color="#fff" />
+                                    <div
+                                        style={{
+                                            fontSize: "0.75rem",
+                                            color: "white",
+                                        }}
+                                    >
+                                        Search
                                     </div>
-                                ) : (
-                                    <SearchOutline size={20} color="#fff" />
-                                )
-                            }
-                        </Link>
-                        <Link
-                            href="/wishlist"
-                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                        >
-                            {({ isActive }) =>
-                                isActive ? (
-                                    <div className="flex flex-col items-center justify-around">
-                                        <Heart size={20} color="#fff" />
-                                        <div
-                                            style={{
-                                                fontSize: "0.75rem",
-                                                color: "white",
-                                            }}
-                                        >
-                                            Wishlist
-                                        </div>
+                                </div>
+                            ) : (
+                                <SearchOutline size={20} color="#fff" />
+                            )
+                        }
+                    </Link>
+                    <Link
+                        href="/wishlist"
+                        className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                    >
+                        {({ isActive }) =>
+                            isActive ? (
+                                <div className="flex flex-col items-center justify-around">
+                                    <Heart size={20} color="#fff" />
+                                    <div
+                                        style={{
+                                            fontSize: "0.75rem",
+                                            color: "white",
+                                        }}
+                                    >
+                                        Wishlist
                                     </div>
-                                ) : (
-                                    <HeartOutline size={20} color="#fff" />
-                                )
-                            }
-                        </Link>
-                    </footer>
-                )}
+                                </div>
+                            ) : (
+                                <HeartOutline size={20} color="#fff" />
+                            )
+                        }
+                    </Link>
+                </footer>
 
                 <style jsx global>{`
                     * {
