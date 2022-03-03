@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200">
-            <div className="relative flex flex-col flex-1 overflow-hidden bg-white shadow">
+            <div className="relative flex flex-col flex-1 bg-white">
                 <main className="flex flex-1">
                     <>
                         <DefaultSeo

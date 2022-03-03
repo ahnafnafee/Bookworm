@@ -72,7 +72,7 @@ function Wishlist() {
                 <div
                     className="flex flex-col flex-1 px-5 pt-2 mt-1"
                     style={{
-                        maxHeight: "100vh",
+                        maxHeight: "80vh",
                         paddingBottom: 120,
                         overflowY: "scroll",
                     }}
