@@ -12,17 +12,22 @@ import { ChakraProvider, Image, Text } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
     const tabRoutes = ["/library", "/search", "/wishlist"];
+
+    useEffect(() => {
+        if (router.route === "/") router.push("/library");
+    }, [router]);
 
     if (isMobile) {
         return (
             <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
                 <div className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm">
                     <main className="flex flex-1 overflow-scroll">
-                        <ChakraProvider>
+                        <>
                             <DefaultSeo
                                 titleTemplate="%s | Bookworm"
                                 defaultTitle="Bookworm"
@@ -50,13 +55,15 @@ function MyApp({ Component, pageProps }) {
                                     ],
                                 }}
                                 twitter={{
-                                    handle: "@handle",
+                                    handle: "@ahnaf_nafee",
                                     site: "@site",
                                     cardType: "summary_large_image",
                                 }}
                             />
-                            <Component {...pageProps} />
-                        </ChakraProvider>
+                            <ChakraProvider>
+                                <Component {...pageProps} />
+                            </ChakraProvider>
+                        </>
                     </main>
 
                     {tabRoutes.includes(router.route) && (
