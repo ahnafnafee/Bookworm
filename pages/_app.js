@@ -32,6 +32,8 @@ function MyApp({ Component, pageProps }) {
                                     type: "website",
                                     locale: "en_US",
                                     url: "https://github.com/ahnafnafee",
+                                    description:
+                                        "📚 Find, search and store books from Google Books by Ahnaf An Nafee",
                                     site_name: "Bookworm",
                                     profile: {
                                         firstName: "Ahnaf",
@@ -39,7 +41,7 @@ function MyApp({ Component, pageProps }) {
                                     },
                                     images: [
                                         {
-                                            url: "images/bookworm-seo-image.png",
+                                            url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
                                             width: 800,
                                             height: 600,
                                             alt: "Bookworm Alt",
