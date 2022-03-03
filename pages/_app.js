@@ -22,144 +22,144 @@ function MyApp({ Component, pageProps }) {
         if (router.route === "/") router.push("/library");
     }, [router]);
 
-    if (isMobile) {
-        return (
-            <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200 xs:py-8">
-                <div className="relative flex flex-col flex-1 overflow-hidden bg-white shadow xs:max-w-sm">
-                    <main className="flex flex-1 overflow-scroll">
-                        <>
-                            <DefaultSeo
-                                titleTemplate="%s | Bookworm"
-                                defaultTitle="Bookworm"
-                                defaultOpenGraphImageHeight={600}
-                                defaultOpenGraphImageWidth={800}
-                                locale="en_US"
-                                openGraph={{
-                                    type: "website",
-                                    locale: "en_US",
-                                    url: "https://bookworm-app.vercel.app/library",
-                                    description:
-                                        "📚 Find, search and store books from Google Books by Ahnaf An Nafee",
-                                    site_name: "Bookworm",
-                                    images: [
-                                        {
-                                            url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
-                                            width: 800,
-                                            height: 600,
-                                            alt: "Bookworm Hero Image",
-                                        },
-                                    ],
-                                }}
-                                twitter={{
-                                    handle: "@ahnaf_nafee",
-                                    site: "https://github.com/ahnafnafee",
-                                    cardType: "summary_large_image",
-                                }}
-                            />
+    return (
+        <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200">
+            <div className="relative flex flex-col flex-1 overflow-hidden bg-white shadow">
+                <main className="flex flex-1">
+                    <>
+                        <DefaultSeo
+                            titleTemplate="%s | Bookworm"
+                            defaultTitle="Bookworm"
+                            defaultOpenGraphImageHeight={600}
+                            defaultOpenGraphImageWidth={800}
+                            locale="en_US"
+                            openGraph={{
+                                type: "website",
+                                locale: "en_US",
+                                url: "https://bookworm-app.vercel.app/library",
+                                description:
+                                    "📚 Find, search and store books from Google Books by Ahnaf An Nafee",
+                                site_name: "Bookworm",
+                                images: [
+                                    {
+                                        url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
+                                        width: 800,
+                                        height: 600,
+                                        alt: "Bookworm Hero Image",
+                                    },
+                                ],
+                            }}
+                            twitter={{
+                                handle: "@ahnaf_nafee",
+                                site: "https://github.com/ahnafnafee",
+                                cardType: "summary_large_image",
+                            }}
+                        />
+                        {isMobile ? (
                             <ChakraProvider>
                                 <Component {...pageProps} />
                             </ChakraProvider>
-                        </>
-                    </main>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base bg-white xs:py-8">
+                                <Image
+                                    width={200}
+                                    objectFit="contain"
+                                    alt="Logo"
+                                    src="/images/bookworm-logo.png"
+                                    align={"center"}
+                                />
+                                <Text fontSize="20px" marginTop={20}>
+                                    is <Text as={"i"}>not supported</Text> in
+                                    Desktop yet
+                                </Text>
+                            </div>
+                        )}
+                    </>
+                </main>
 
-                    {tabRoutes.includes(router.route) && (
-                        <footer
-                            id="footer-main"
-                            className="flex"
-                            style={footerStyle}
+                {isMobile && tabRoutes.includes(router.route) && (
+                    <footer
+                        id="footer-main"
+                        className="flex"
+                        style={footerStyle}
+                    >
+                        <Link
+                            href="/library"
+                            className="flex items-center justify-center w-1/3 py-4"
                         >
-                            <Link
-                                href="/library"
-                                className="flex items-center justify-center w-1/3 py-4"
-                            >
-                                {({ isActive }) =>
-                                    isActive ? (
-                                        <div className="flex flex-col items-center justify-around">
-                                            <Book size={20} color="#fff" />
-                                            <div
-                                                style={{
-                                                    fontSize: "0.75rem",
-                                                    color: "white",
-                                                }}
-                                            >
-                                                Library
-                                            </div>
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Book size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Library
                                         </div>
-                                    ) : (
-                                        <BookOutline size={20} color="#fff" />
-                                    )
-                                }
-                            </Link>
-                            <Link
-                                href="/search"
-                                className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                            >
-                                {({ isActive }) =>
-                                    isActive ? (
-                                        <div className="flex flex-col items-center justify-around">
-                                            <Search size={20} color="#fff" />
-                                            <div
-                                                style={{
-                                                    fontSize: "0.75rem",
-                                                    color: "white",
-                                                }}
-                                            >
-                                                Search
-                                            </div>
+                                    </div>
+                                ) : (
+                                    <BookOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                        <Link
+                            href="/search"
+                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                        >
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Search size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Search
                                         </div>
-                                    ) : (
-                                        <SearchOutline size={20} color="#fff" />
-                                    )
-                                }
-                            </Link>
-                            <Link
-                                href="/wishlist"
-                                className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                            >
-                                {({ isActive }) =>
-                                    isActive ? (
-                                        <div className="flex flex-col items-center justify-around">
-                                            <Heart size={20} color="#fff" />
-                                            <div
-                                                style={{
-                                                    fontSize: "0.75rem",
-                                                    color: "white",
-                                                }}
-                                            >
-                                                Wishlist
-                                            </div>
+                                    </div>
+                                ) : (
+                                    <SearchOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                        <Link
+                            href="/wishlist"
+                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                        >
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Heart size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Wishlist
                                         </div>
-                                    ) : (
-                                        <HeartOutline size={20} color="#fff" />
-                                    )
-                                }
-                            </Link>
-                        </footer>
-                    )}
+                                    </div>
+                                ) : (
+                                    <HeartOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                    </footer>
+                )}
 
-                    <style jsx global>{`
-                        * {
-                            padding: 0;
-                            margin: 0;
-                            font-family: Poppins, Helvetica Neue, sans-serif;
-                        }
-                    `}</style>
-                </div>
+                <style jsx global>{`
+                    * {
+                        padding: 0;
+                        margin: 0;
+                        font-family: Poppins, Helvetica Neue, sans-serif;
+                    }
+                `}</style>
             </div>
-        );
-    }
-    return (
-        <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base bg-white xs:py-8">
-            <Image
-                width={200}
-                objectFit="contain"
-                alt="Logo"
-                src="/images/bookworm-logo.png"
-                align={"center"}
-            />
-            <Text fontSize="20px" marginTop={20}>
-                is <Text as={"i"}>not supported</Text> in Desktop yet
-            </Text>
         </div>
     );
 }
