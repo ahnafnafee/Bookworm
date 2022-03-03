@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }) {
                                 defaultTitle="Bookworm"
                                 defaultOpenGraphImageHeight={600}
                                 defaultOpenGraphImageWidth={800}
+                                locale="en_US"
                                 openGraph={{
                                     type: "website",
                                     locale: "en_US",

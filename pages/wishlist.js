@@ -24,9 +24,30 @@ function Wishlist() {
     return (
         <div className="flex h-full w-screen">
             <NextSeo
+                locale="en_US"
                 title="Wishlist"
                 description="Allows the user to wishlist for their favorite books"
-                canonical="https://github.com/ahnafnafee"
+                openGraph={{
+                    type: "website",
+                    locale: "en_US",
+                    url: "https://bookworm-app.vercel.app/wishlist",
+                    description:
+                        "📚 Allows the user to wishlist for their favorite books",
+                    site_name: "Bookworm",
+                    profile: {
+                        firstName: "Ahnaf",
+                        lastName: "An Nafee",
+                    },
+                    images: [
+                        {
+                            url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
+                            width: 800,
+                            height: 600,
+                            alt: "Bookworm Alt",
+                            type: "image/png",
+                        },
+                    ],
+                }}
                 twitter={{
                     handle: "@handle",
                     site: "@site",
