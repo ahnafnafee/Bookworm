@@ -37,26 +37,22 @@ function MyApp({ Component, pageProps }) {
                                 openGraph={{
                                     type: "website",
                                     locale: "en_US",
-                                    url: "https://github.com/ahnafnafee",
+                                    url: "https://bookworm-app.vercel.app/library",
                                     description:
                                         "📚 Find, search and store books from Google Books by Ahnaf An Nafee",
                                     site_name: "Bookworm",
-                                    profile: {
-                                        firstName: "Ahnaf",
-                                        lastName: "An Nafee",
-                                    },
                                     images: [
                                         {
                                             url: "https://raw.githubusercontent.com/ahnafnafee/Bookworm-Client/main/public/images/bookworm-seo-image.png",
                                             width: 800,
                                             height: 600,
-                                            alt: "Bookworm Alt",
+                                            alt: "Bookworm Hero Image",
                                         },
                                     ],
                                 }}
                                 twitter={{
                                     handle: "@ahnaf_nafee",
-                                    site: "@site",
+                                    site: "https://github.com/ahnafnafee",
                                     cardType: "summary_large_image",
                                 }}
                             />
