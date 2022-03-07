@@ -6,6 +6,8 @@ import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import useSWR from "swr";
+import { supabaseClient } from "../lib/client";
+import { useEffect, useState } from "react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 

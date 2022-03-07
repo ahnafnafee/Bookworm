@@ -48,8 +48,10 @@ function MyApp({ Component, pageProps }) {
             if (router.route === "/authenticate") {
                 router.push("/library");
             }
+        } else {
+            if (router.route !== "/authenticate") router.push("/authenticate");
         }
-    }, [router.pathname, user, router]);
+    }, [user, router]);
 
     const handleAuthSession = async (event, session) => {
         await fetch("/api/auth", {

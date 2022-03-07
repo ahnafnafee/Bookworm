@@ -11,16 +11,35 @@ import {
 import { IoArrowBack as ArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import { useClerk } from "@clerk/clerk-react";
 import { supabaseClient } from "../lib/client";
+import { useEffect, useState } from "react";
 
 export default function Settings() {
     const router = useRouter();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+
+    const user = supabaseClient.auth.user();
 
     const values = {
         name: "Alyssa",
         email: "alyssa@gmail.com",
     };
+
+    useEffect(() => {
+        if (user) {
+            supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq("id", user.id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setName(data[0].first_name || "");
+                        setEmail(data[0].email || "");
+                    }
+                });
+        }
+    }, [user]);
 
     return (
         <div className="flex h-full w-screen">
@@ -56,7 +75,7 @@ export default function Settings() {
                                 type={"name"}
                                 placeholder="Name"
                                 readOnly
-                                value={values.name}
+                                value={name}
                             />
                         </InputGroup>
                     </FormControl>
@@ -69,7 +88,7 @@ export default function Settings() {
                                 type={"email"}
                                 placeholder="Email"
                                 readOnly
-                                value={values.email}
+                                value={email}
                             />
                         </InputGroup>
                     </FormControl>

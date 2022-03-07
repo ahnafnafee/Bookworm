@@ -6,7 +6,8 @@ import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import useSWR from "swr";
-import { useUser } from "@clerk/nextjs";
+import { supabaseClient } from "../lib/client";
+import { useEffect, useState } from "react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -17,6 +18,23 @@ function Library() {
         `https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15`,
         fetcher
     );
+    const [name, setName] = useState("");
+
+    const user = supabaseClient.auth.user();
+
+    useEffect(() => {
+        if (user) {
+            supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq("id", user.id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setName(data[0].first_name || "");
+                    }
+                });
+        }
+    }, [user]);
 
     React.useEffect(() => {
         if (bookData) setData(bookData.items);
@@ -32,7 +50,7 @@ function Library() {
             <div className="flex flex-col flex-1 justify-start">
                 <div className="flex flex-row justify-between items-center h-16 content-center my-7 px-5">
                     <Text fontSize="2xl" fontWeight={"extrabold"}>
-                        Welcome Alyssa
+                        Welcome {name}
                     </Text>
                     <Avatar
                         size="sm"
