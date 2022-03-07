@@ -1,24 +1,15 @@
 import * as React from "react";
-import Head from "next/head";
 import { Text } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import useSWR from "swr";
 import { supabaseClient } from "../lib/client";
 import { useEffect, useState } from "react";
-import { libStatus } from "../utils/listener";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function Library() {
     const router = useRouter();
     const [data, setData] = React.useState([]);
-    const { data: bookData, error } = useSWR(
-        `https://www.googleapis.com/books/v1/volumes?q=George R R Martin&maxResults=15`,
-        fetcher
-    );
     const [name, setName] = useState("");
 
     const user = supabaseClient.auth.user();
@@ -47,10 +38,6 @@ function Library() {
                 });
         }
     }, [user]);
-
-    // React.useEffect(() => {
-    //     if (bookData) setData(bookData.items);
-    // }, [bookData]);
 
     return (
         <div className="flex h-full w-screen">
@@ -90,6 +77,7 @@ function Library() {
                         data.length > 0 &&
                         data.map(
                             ({
+                                id,
                                 user_id,
                                 g_id,
                                 title,
@@ -99,6 +87,7 @@ function Library() {
                                 rating,
                             }) => {
                                 const volumeInfo = {
+                                    id,
                                     user_id,
                                     g_id,
                                     title,

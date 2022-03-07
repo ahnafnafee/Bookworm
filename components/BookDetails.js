@@ -12,6 +12,7 @@ import {
 import { supabaseClient } from "../lib/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useToast } from "@chakra-ui/react";
 
 export function BookDetails({
     id,
@@ -21,6 +22,7 @@ export function BookDetails({
 }) {
     const router = useRouter();
     const user = supabaseClient.auth.user();
+    const toast = useToast();
 
     // Hacky way to remove data from list.\
     // TODO: Use a reducer instead
@@ -34,11 +36,12 @@ export function BookDetails({
         return imageLinks.thumbnail.replace("http://", "https://");
     };
 
-    const extractISBN13 = ({ industryIdentifiers }) => {
-        industryIdentifiers.filter((isbn) => {
-            if (isbn.type === "ISBN_13") {
-                return isbn.identifier;
-            }
+    const toastMsg = (title, status) => {
+        return toast({
+            title: title,
+            status: status ? status : "success",
+            duration: 1000,
+            isClosable: true,
         });
     };
 
@@ -91,16 +94,17 @@ export function BookDetails({
                                 if (!error) {
                                     setRemoved(true);
                                     console.log(data);
+                                    toastMsg("Moved to Library");
                                 } else {
                                     console.log(error);
+                                    toastMsg("Failed", "error");
                                 }
                             });
                     } else {
                         console.log(error);
+                        toastMsg("Failed", "error");
                     }
                 });
-            // router.reload(window.location.pathname);
-            console.log("Moved to Library", id, volumeInfo);
         }
     };
 
@@ -113,12 +117,12 @@ export function BookDetails({
                     if (!error) {
                         setRemoved(true);
                         console.log(data);
+                        toastMsg("Added to Wishlist");
                     } else {
                         console.log(error);
+                        toastMsg("Failed", "error");
                     }
                 });
-            // router.reload(window.location.pathname);
-            console.log("Added to Wishlist", id, volumeInfo);
         }
     };
 
@@ -131,12 +135,12 @@ export function BookDetails({
                     if (!error) {
                         setRemoved(true);
                         console.log(data);
+                        toastMsg("Added to Library");
                     } else {
                         console.log(error);
+                        toastMsg("Failed", "error");
                     }
                 });
-            // router.reload(window.location.pathname);
-            console.log("Added to Library", id, volumeInfo);
         }
     };
 
@@ -145,17 +149,17 @@ export function BookDetails({
             supabaseClient
                 .from("book_wishlist")
                 .delete()
-                .eq("g_id", id)
+                .eq("id", volumeInfo.id)
                 .then(({ data, error }) => {
                     if (!error) {
                         setRemoved(true);
                         console.log(data);
+                        toastMsg("Deleted from Wishlist");
                     } else {
                         console.log(error);
+                        toastMsg("Failed", "error");
                     }
                 });
-            // router.reload(window.location.pathname);
-            console.log("Deleted from Wishlist", id, volumeInfo);
         }
     };
 
@@ -164,17 +168,17 @@ export function BookDetails({
             supabaseClient
                 .from("book_library")
                 .delete()
-                .eq("g_id", id)
+                .eq("id", volumeInfo.id)
                 .then(({ data, error }) => {
                     if (!error) {
                         setRemoved(true);
                         console.log(data);
+                        toastMsg("Deleted from Library");
                     } else {
                         console.log(error);
+                        toastMsg("Failed", "error");
                     }
                 });
-            // router.reload(window.location.pathname);
-            console.log("Deleted from Library", id, volumeInfo);
         }
     };
 
