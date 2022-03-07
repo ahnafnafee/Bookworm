@@ -6,12 +6,16 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "export": "next build && next export"
     },
     "dependencies": {
         "@chakra-ui/react": "^1.8.6",
+        "@clerk/nextjs": "^3.0.0-alpha.8",
         "@emotion/react": "11",
         "@emotion/styled": "11",
+        "@supabase/supabase-auth-helpers": "^1.2.0",
+        "@supabase/supabase-js": "^1.30.7",
         "date-fns": "^2.15.0",
         "faker": "^4.1.0",
         "formik": "^2.2.9",

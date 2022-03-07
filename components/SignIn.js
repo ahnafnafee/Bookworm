@@ -12,6 +12,8 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { useSignIn } from "@clerk/clerk-react";
+import { supabaseClient } from "../lib/client";
 
 export default function SignIn() {
     const router = useRouter();
@@ -48,8 +50,20 @@ export default function SignIn() {
                 .required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            router.push("/library");
             console.log(values);
+            try {
+                const { user, session, error } =
+                    await supabaseClient.auth.signIn({
+                        email: values.email,
+                        password: values.password,
+                    });
+                if (error) {
+                    console.log(error);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            // router.push("/library");
         },
     });
 

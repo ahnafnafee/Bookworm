@@ -12,11 +12,17 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { useSignUp } from "@clerk/clerk-react";
+import { supabaseClient } from "../lib/client";
+import { useState } from "react";
 
 export default function SignUp() {
     const router = useRouter();
     const [show, setShow] = React.useState(false);
+    const [error, setError] = useState(null);
     const handleClick = () => setShow(!show);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const {
         touched,
@@ -49,8 +55,45 @@ export default function SignUp() {
                 .required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            router.push("/library");
             console.log(values);
+            try {
+                const { error } = await supabaseClient.auth.signUp(
+                    {
+                        email: values.email,
+                        password: values.password,
+                    },
+                    {
+                        data: {
+                            first_name: values.name,
+                        },
+                    }
+                );
+                if (error) {
+                    console.log(error);
+                    setError(error.message);
+                } else {
+                    setIsSubmitted(true);
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+            // await signUp
+            //     .create({
+            //         firstName: values.name,
+            //         lastName: "",
+            //         emailAddress: values.email,
+            //         password: values.password,
+            //     })
+            //     .then(() => {
+            //         console.log("Success");
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+            // router.push("/library");
         },
     });
 
@@ -69,7 +112,7 @@ export default function SignUp() {
                             pr="4.5rem"
                             type={"name"}
                             errorBorderColor="red.300"
-                            placeholder="Email"
+                            placeholder="First Name"
                             onChange={handleChange("name")}
                             autoComplete={"name"}
                             value={values.name}

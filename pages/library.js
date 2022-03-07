@@ -6,6 +6,7 @@ import { BookDetails } from "../components/BookDetails";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import useSWR from "swr";
+import { useUser } from "@clerk/nextjs";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 

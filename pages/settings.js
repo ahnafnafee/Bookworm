@@ -11,6 +11,8 @@ import {
 import { IoArrowBack as ArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import { useClerk } from "@clerk/clerk-react";
+import { supabaseClient } from "../lib/client";
 
 export default function Settings() {
     const router = useRouter();
@@ -88,9 +90,9 @@ export default function Settings() {
                             color: "white",
                             height: 60,
                         }}
-                        onClick={() => {
-                            router.push("/authenticate");
-                            console.log("Logout");
+                        onClick={async () => {
+                            const { error } =
+                                await supabaseClient.auth.signOut();
                         }}
                     >
                         Sign Out
