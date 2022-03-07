@@ -59,14 +59,13 @@ export default function SignUp() {
             email: Yup.string().email("Invalid email").required("Required"),
             password: Yup.string()
                 // TODO: Will be added during prod
-                // .matches(
-                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                //     "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
-                // )
+                .matches(
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                    "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
+                )
                 .required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            console.log(values);
             try {
                 const { error } = await supabaseClient.auth.signUp(
                     {

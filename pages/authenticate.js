@@ -9,24 +9,12 @@ import {
     Image,
     Text,
 } from "@chakra-ui/react";
-import Head from "next/head";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import { NextSeo } from "next-seo";
 import { ClerkLoaded } from "@clerk/clerk-react";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/router";
-import { supabaseClient } from "../lib/client";
 
 function AuthPage(props) {
-    const router = useRouter();
-    const [value, setValue] = React.useState("1");
-    const user = supabaseClient.auth.user();
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     return (
         <ClerkLoaded>
             <div className="flex h-full">
@@ -39,11 +27,11 @@ function AuthPage(props) {
                     <Flex
                         alignItems={"center"}
                         justifyContent="center"
-                        className="my-11"
+                        className="mt-11"
                         direction={"column"}
                     >
                         <Image
-                            boxSize="70%"
+                            width={"70%"}
                             objectFit="contain"
                             alt="Logo"
                             src="/images/bookworm-logo.png"
@@ -118,13 +106,5 @@ function AuthPage(props) {
         </ClerkLoaded>
     );
 }
-
-// export async function getServerSideProps(context) {
-//     const res = await fetch("https://api.github.com/repos/vercel/next.js");
-//     const json = await res.json();
-//     return {
-//         props: { stars: json.stargazers_count },
-//     };
-// }
 
 export default AuthPage;

@@ -51,16 +51,9 @@ export default function SignIn() {
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email("Invalid email").required("Required"),
-            password: Yup.string()
-                // TODO: Will be added during prod
-                // .matches(
-                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                //     "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
-                // )
-                .required("Required"),
+            password: Yup.string().min(8, "Too small!").required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            console.log(values);
             try {
                 const { user, session, error } =
                     await supabaseClient.auth.signIn({
@@ -88,7 +81,12 @@ export default function SignIn() {
     return (
         <div className="flex flex-col flex-1 justify-between">
             <div>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.email)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -107,7 +105,11 @@ export default function SignIn() {
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4">
+                <FormControl
+                    isInvalid={Boolean(errors.password)}
+                    isRequired
+                    className="my-4"
+                >
                     <FormLabel htmlFor="password">Password</FormLabel>
                     <InputGroup size="md">
                         <Input
