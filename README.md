@@ -19,8 +19,8 @@
 ## Built with
 
 -   **FrontEnd**: _Next.js_
--   **BackEnd**: _Flask_
--   **Database**: _SQLite_
+-   **BackEnd**: _Supabase_
+-   **Database**: PostgreSQL (PostgREST from _Supabase_)
 
 ---
 
