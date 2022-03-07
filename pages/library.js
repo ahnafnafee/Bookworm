@@ -8,6 +8,7 @@ import { NextSeo } from "next-seo";
 import useSWR from "swr";
 import { supabaseClient } from "../lib/client";
 import { useEffect, useState } from "react";
+import { libStatus } from "../utils/listener";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -33,12 +34,23 @@ function Library() {
                         setName(data[0].first_name || "");
                     }
                 });
+
+            supabaseClient
+                .from("book_library")
+                .select("*")
+                .eq("user_id", user.id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setData(data);
+                        console.log(data);
+                    }
+                });
         }
     }, [user]);
 
-    React.useEffect(() => {
-        if (bookData) setData(bookData.items);
-    }, [bookData]);
+    // React.useEffect(() => {
+    //     if (bookData) setData(bookData.items);
+    // }, [bookData]);
 
     return (
         <div className="flex h-full w-screen">
@@ -75,15 +87,37 @@ function Library() {
                     }}
                 >
                     {data &&
-                        data.map(({ id, volumeInfo }) => (
-                            <BookDetails
-                                key={id}
-                                id={id}
-                                volumeInfo={volumeInfo}
-                                isLibrary={true}
-                                isSearch={false}
-                            />
-                        ))}
+                        data.length > 0 &&
+                        data.map(
+                            ({
+                                user_id,
+                                g_id,
+                                title,
+                                authors,
+                                thumbnail,
+                                categories,
+                                rating,
+                            }) => {
+                                const volumeInfo = {
+                                    user_id,
+                                    g_id,
+                                    title,
+                                    authors,
+                                    thumbnail,
+                                    categories,
+                                    rating,
+                                };
+                                return (
+                                    <BookDetails
+                                        key={g_id}
+                                        id={g_id}
+                                        volumeInfo={volumeInfo}
+                                        isLibrary={true}
+                                        isSearch={false}
+                                    />
+                                );
+                            }
+                        )}
                 </div>
             </div>
         </div>

@@ -9,6 +9,9 @@ import {
     IoStar as Star,
     IoStarOutline as StarOutline,
 } from "react-icons/io5";
+import { supabaseClient } from "../lib/client";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export function BookDetails({
     id,
@@ -16,6 +19,13 @@ export function BookDetails({
     isSearch = true,
     isLibrary = false,
 }) {
+    const router = useRouter();
+    const user = supabaseClient.auth.user();
+
+    // Hacky way to remove data from list.\
+    // TODO: Use a reducer instead
+    const [removed, setRemoved] = useState(false);
+
     const extractThumbnail = ({ imageLinks }) => {
         const DEFAULT_THUMBNAIL = "https://via.placeholder.com/180x280";
         if (!imageLinks || !imageLinks.thumbnail) {
@@ -31,6 +41,144 @@ export function BookDetails({
             }
         });
     };
+
+    const bookData = (id, volumeInfo) => {
+        return [
+            {
+                user_id: user.id,
+                g_id: id,
+                title: volumeInfo.title,
+                authors:
+                    volumeInfo.authors !== undefined
+                        ? volumeInfo.authors[0]
+                        : "Unknown",
+                thumbnail: extractThumbnail(volumeInfo),
+                categories:
+                    volumeInfo.categories === undefined
+                        ? "Others"
+                        : volumeInfo.categories[0],
+                rating: volumeInfo.averageRating,
+            },
+        ];
+    };
+
+    const existingBookData = (id, volumeInfo) => {
+        return [
+            {
+                user_id: user.id,
+                g_id: id,
+                title: volumeInfo.title,
+                authors: volumeInfo.authors,
+                thumbnail: volumeInfo.thumbnail,
+                categories: volumeInfo.categories,
+                rating: volumeInfo.averageRating,
+            },
+        ];
+    };
+
+    const moveToLibrary = (id, volumeInfo) => {
+        if (user) {
+            supabaseClient
+                .from("book_library")
+                .insert(existingBookData(id, volumeInfo))
+                .then(({ data, error }) => {
+                    if (!error) {
+                        supabaseClient
+                            .from("book_wishlist")
+                            .delete()
+                            .eq("g_id", id)
+                            .then(({ data, error }) => {
+                                if (!error) {
+                                    setRemoved(true);
+                                    console.log(data);
+                                } else {
+                                    console.log(error);
+                                }
+                            });
+                    } else {
+                        console.log(error);
+                    }
+                });
+            // router.reload(window.location.pathname);
+            console.log("Moved to Library", id, volumeInfo);
+        }
+    };
+
+    const addToWishlist = (id, volumeInfo) => {
+        if (user) {
+            supabaseClient
+                .from("book_wishlist")
+                .insert(bookData(id, volumeInfo))
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setRemoved(true);
+                        console.log(data);
+                    } else {
+                        console.log(error);
+                    }
+                });
+            // router.reload(window.location.pathname);
+            console.log("Added to Wishlist", id, volumeInfo);
+        }
+    };
+
+    const addToLibrary = (id, volumeInfo) => {
+        if (user) {
+            supabaseClient
+                .from("book_library")
+                .insert(bookData(id, volumeInfo))
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setRemoved(true);
+                        console.log(data);
+                    } else {
+                        console.log(error);
+                    }
+                });
+            // router.reload(window.location.pathname);
+            console.log("Added to Library", id, volumeInfo);
+        }
+    };
+
+    const deleteFromWishlist = (id, volumeInfo) => {
+        if (user) {
+            supabaseClient
+                .from("book_wishlist")
+                .delete()
+                .eq("g_id", id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setRemoved(true);
+                        console.log(data);
+                    } else {
+                        console.log(error);
+                    }
+                });
+            // router.reload(window.location.pathname);
+            console.log("Deleted from Wishlist", id, volumeInfo);
+        }
+    };
+
+    const deleteFromLibrary = (id, volumeInfo) => {
+        if (user) {
+            supabaseClient
+                .from("book_library")
+                .delete()
+                .eq("g_id", id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setRemoved(true);
+                        console.log(data);
+                    } else {
+                        console.log(error);
+                    }
+                });
+            // router.reload(window.location.pathname);
+            console.log("Deleted from Library", id, volumeInfo);
+        }
+    };
+
+    if (removed) return <div></div>;
 
     return (
         <div key={id}>
@@ -51,7 +199,11 @@ export function BookDetails({
                         width={"30%"}
                         objectFit="contain"
                         alt="Logo"
-                        src={extractThumbnail(volumeInfo)}
+                        src={
+                            isSearch
+                                ? extractThumbnail(volumeInfo)
+                                : volumeInfo.thumbnail
+                        }
                         align={"center"}
                         borderRadius={8}
                         marginRight={4}
@@ -66,7 +218,11 @@ export function BookDetails({
                             {volumeInfo.title}
                         </Text>
                         <Text fontSize="sm" noOfLines={1}>
-                            by {volumeInfo.authors}
+                            by{" "}
+                            {isSearch
+                                ? volumeInfo.authors !== undefined &&
+                                  volumeInfo.authors[0]
+                                : volumeInfo.authors}
                         </Text>
                         <Text
                             fontWeight={"light"}
@@ -74,8 +230,10 @@ export function BookDetails({
                             fontSize="sm"
                             noOfLines={1}
                         >
-                            {volumeInfo.categories === undefined
-                                ? "Others"
+                            {isSearch
+                                ? volumeInfo.categories === undefined
+                                    ? "Others"
+                                    : volumeInfo.categories
                                 : volumeInfo.categories}
                         </Text>
                         <Rating
@@ -95,21 +253,13 @@ export function BookDetails({
                                 aria-label="wishlist"
                                 icon={<HeartOutline size={20} color="#000" />}
                                 variant="outline"
-                                onClick={() =>
-                                    console.log("Wishlisted", id, volumeInfo)
-                                }
+                                onClick={() => addToWishlist(id, volumeInfo)}
                             />
                             <IconButton
                                 aria-label="add-to-library"
                                 icon={<AddOutline size={20} color="#000" />}
                                 variant="outline"
-                                onClick={() =>
-                                    console.log(
-                                        "Added to Library",
-                                        id,
-                                        volumeInfo
-                                    )
-                                }
+                                onClick={() => addToLibrary(id, volumeInfo)}
                             />
                         </>
                     ) : (
@@ -131,8 +281,7 @@ export function BookDetails({
                                         <MenuList>
                                             <MenuItem
                                                 onClick={() =>
-                                                    console.log(
-                                                        "Deleted from Library",
+                                                    deleteFromLibrary(
                                                         id,
                                                         volumeInfo
                                                     )
@@ -147,8 +296,7 @@ export function BookDetails({
                                         <MenuList>
                                             <MenuItem
                                                 onClick={() =>
-                                                    console.log(
-                                                        "Moved to Library",
+                                                    moveToLibrary(
                                                         id,
                                                         volumeInfo
                                                     )
@@ -158,8 +306,7 @@ export function BookDetails({
                                             </MenuItem>
                                             <MenuItem
                                                 onClick={() =>
-                                                    console.log(
-                                                        "Deleted from Wishlist",
+                                                    deleteFromWishlist(
                                                         id,
                                                         volumeInfo
                                                     )

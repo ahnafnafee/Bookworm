@@ -19,9 +19,22 @@ function Wishlist() {
         fetcher
     );
 
-    React.useEffect(() => {
-        if (bookData) setData(bookData.items);
-    }, [bookData]);
+    const user = supabaseClient.auth.user();
+
+    useEffect(() => {
+        if (user) {
+            supabaseClient
+                .from("book_wishlist")
+                .select("*")
+                .eq("user_id", user.id)
+                .then(({ data, error }) => {
+                    if (!error) {
+                        setData(data);
+                        console.log(data);
+                    }
+                });
+        }
+    }, [user]);
 
     return (
         <div className="flex h-full w-screen">
@@ -54,15 +67,36 @@ function Wishlist() {
                     }}
                 >
                     {data &&
-                        data.map(({ id, volumeInfo }) => (
-                            <BookDetails
-                                key={id}
-                                id={id}
-                                volumeInfo={volumeInfo}
-                                isLibrary={false}
-                                isSearch={false}
-                            />
-                        ))}
+                        data.map(
+                            ({
+                                user_id,
+                                g_id,
+                                title,
+                                authors,
+                                thumbnail,
+                                categories,
+                                rating,
+                            }) => {
+                                const volumeInfo = {
+                                    user_id,
+                                    g_id,
+                                    title,
+                                    authors,
+                                    thumbnail,
+                                    categories,
+                                    rating,
+                                };
+                                return (
+                                    <BookDetails
+                                        key={g_id}
+                                        id={g_id}
+                                        volumeInfo={volumeInfo}
+                                        isLibrary={false}
+                                        isSearch={false}
+                                    />
+                                );
+                            }
+                        )}
                 </div>
             </div>
         </div>
