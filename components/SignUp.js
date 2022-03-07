@@ -100,7 +100,12 @@ export default function SignUp() {
     return (
         <div className="flex flex-col flex-1 justify-between">
             <div>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.name)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">First Name</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -117,7 +122,12 @@ export default function SignUp() {
                     </InputGroup>
                     <FormErrorMessage>{errors.name}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.email)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -134,7 +144,11 @@ export default function SignUp() {
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4">
+                <FormControl
+                    isInvalid={Boolean(errors.password)}
+                    isRequired
+                    className="my-4"
+                >
                     <FormLabel htmlFor="password">Password</FormLabel>
                     <InputGroup size="md">
                         <Input
