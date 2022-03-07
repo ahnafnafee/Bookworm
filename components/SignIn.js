@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
     Button,
-    Flex,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -12,14 +11,25 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
-import { useSignIn } from "@clerk/clerk-react";
 import { supabaseClient } from "../lib/client";
+import { useToast } from "@chakra-ui/react";
 
 export default function SignIn() {
     const router = useRouter();
     const [show, setShow] = React.useState(false);
     const [isFocused, setIsFocused] = React.useState(false);
+    const toast = useToast();
     const handleClick = () => setShow(!show);
+
+    const toastMsg = (desc) => {
+        return toast({
+            title: "Failed",
+            description: desc,
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+        });
+    };
 
     const {
         touched,
@@ -58,12 +68,12 @@ export default function SignIn() {
                         password: values.password,
                     });
                 if (error) {
+                    toastMsg(error.message);
                     console.log(error);
                 }
             } catch (error) {
-                console.log(error);
+                console.log("Error", error);
             }
-            // router.push("/library");
         },
     });
 

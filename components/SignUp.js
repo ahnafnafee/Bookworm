@@ -12,7 +12,7 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
-import { useSignUp } from "@clerk/clerk-react";
+import { useToast } from "@chakra-ui/react";
 import { supabaseClient } from "../lib/client";
 import { useState } from "react";
 
@@ -23,6 +23,17 @@ export default function SignUp() {
     const handleClick = () => setShow(!show);
     const [isLoading, setIsLoading] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const toast = useToast();
+
+    const toastMsg = (desc) => {
+        return toast({
+            title: "Failed",
+            description: desc,
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+        });
+    };
 
     const {
         touched,
@@ -69,8 +80,8 @@ export default function SignUp() {
                     }
                 );
                 if (error) {
+                    toastMsg(error.message);
                     console.log(error);
-                    setError(error.message);
                 } else {
                     setIsSubmitted(true);
                 }
@@ -80,20 +91,6 @@ export default function SignUp() {
             } finally {
                 setIsLoading(false);
             }
-            // await signUp
-            //     .create({
-            //         firstName: values.name,
-            //         lastName: "",
-            //         emailAddress: values.email,
-            //         password: values.password,
-            //     })
-            //     .then(() => {
-            //         console.log("Success");
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-            // router.push("/library");
         },
     });
 
