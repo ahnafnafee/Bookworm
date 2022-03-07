@@ -14,13 +14,34 @@
 
 :electric_plug: **Real-time search**: Search books by name, author, genre etc...
 
----
-
 ## Built with
 
 -   **FrontEnd**: _Next.js_
 -   **BackEnd**: _Supabase_
 -   **Database**: PostgreSQL (PostgREST from _Supabase_)
+
+## Quick Start
+
+#### Install
+
+Make sure you have yarn/npm installed
+
+```bash
+yarn install
+```
+
+#### Run
+
+```bash
+yarn dev
+```
+
+Note: You will need to create a `.env.local` file in the root directory and assign the following values:
+
+```env
+NEXT_PUBLIC_SUPABASE_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
+```
 
 ---
 
