@@ -8,18 +8,59 @@ import {
     IoHeart as Heart,
     IoHeartOutline as HeartOutline,
 } from "react-icons/io5";
-import { ChakraProvider, Image, Text } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { useEffect } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
+import { supabaseClient } from "../lib/client";
+import * as React from "react";
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
+    const user = supabaseClient.auth.user();
+
     const tabRoutes = ["/library", "/search", "/wishlist"];
 
     useEffect(() => {
-        if (router.route === "/") router.push("/library");
+        const { data: authListener } = supabaseClient.auth.onAuthStateChange(
+            (event, session) => {
+                handleAuthSession(event, session);
+                if (event === "SIGNED_IN") {
+                    const signedInUser = supabaseClient.auth.user();
+                    const userId = signedInUser.id;
+                    console.log(signedInUser.user_metadata);
+                    if (signedInUser) router.push("/library");
+                }
+                if (event === "SIGNED_OUT") {
+                    router.push("/authenticate");
+                }
+            }
+        );
+
+        return () => {
+            authListener.unsubscribe();
+        };
     }, [router]);
+
+    useEffect(() => {
+        if (user) {
+            if (router.route === "/authenticate") {
+                router.push("/library");
+            }
+        } else {
+            if (router.route !== "/authenticate") router.push("/authenticate");
+        }
+    }, [user, router]);
+
+    const handleAuthSession = async (event, session) => {
+        await fetch("/api/auth", {
+            method: "POST",
+            headers: new Headers({ "Content-Type": "application/json" }),
+            credentials: "same-origin",
+            body: JSON.stringify({ event, session }),
+        });
+    };
 
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen mx-auto text-base text-gray-900 bg-cool-gray-200">
@@ -55,79 +96,87 @@ function MyApp({ Component, pageProps }) {
                             }}
                         />
                         <ChakraProvider>
-                            <Component {...pageProps} />
+                            <ClerkProvider>
+                                <Component {...pageProps} />
+                            </ClerkProvider>
                         </ChakraProvider>
                     </>
                 </main>
 
-                <footer id="footer-main" className="flex" style={footerStyle}>
-                    <Link
-                        href="/library"
-                        className="flex items-center justify-center w-1/3 py-4"
+                {tabRoutes.includes(router.route) && (
+                    <footer
+                        id="footer-main"
+                        className="flex"
+                        style={footerStyle}
                     >
-                        {({ isActive }) =>
-                            isActive ? (
-                                <div className="flex flex-col items-center justify-around">
-                                    <Book size={20} color="#fff" />
-                                    <div
-                                        style={{
-                                            fontSize: "0.75rem",
-                                            color: "white",
-                                        }}
-                                    >
-                                        Library
+                        <Link
+                            href="/library"
+                            className="flex items-center justify-center w-1/3 py-4"
+                        >
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Book size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Library
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <BookOutline size={20} color="#fff" />
-                            )
-                        }
-                    </Link>
-                    <Link
-                        href="/search"
-                        className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                    >
-                        {({ isActive }) =>
-                            isActive ? (
-                                <div className="flex flex-col items-center justify-around">
-                                    <Search size={20} color="#fff" />
-                                    <div
-                                        style={{
-                                            fontSize: "0.75rem",
-                                            color: "white",
-                                        }}
-                                    >
-                                        Search
+                                ) : (
+                                    <BookOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                        <Link
+                            href="/search"
+                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                        >
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Search size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Search
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <SearchOutline size={20} color="#fff" />
-                            )
-                        }
-                    </Link>
-                    <Link
-                        href="/wishlist"
-                        className="flex items-center justify-center w-1/3 py-4 text-gray-500"
-                    >
-                        {({ isActive }) =>
-                            isActive ? (
-                                <div className="flex flex-col items-center justify-around">
-                                    <Heart size={20} color="#fff" />
-                                    <div
-                                        style={{
-                                            fontSize: "0.75rem",
-                                            color: "white",
-                                        }}
-                                    >
-                                        Wishlist
+                                ) : (
+                                    <SearchOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                        <Link
+                            href="/wishlist"
+                            className="flex items-center justify-center w-1/3 py-4 text-gray-500"
+                        >
+                            {({ isActive }) =>
+                                isActive ? (
+                                    <div className="flex flex-col items-center justify-around">
+                                        <Heart size={20} color="#fff" />
+                                        <div
+                                            style={{
+                                                fontSize: "0.75rem",
+                                                color: "white",
+                                            }}
+                                        >
+                                            Wishlist
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <HeartOutline size={20} color="#fff" />
-                            )
-                        }
-                    </Link>
-                </footer>
+                                ) : (
+                                    <HeartOutline size={20} color="#fff" />
+                                )
+                            }
+                        </Link>
+                    </footer>
+                )}
 
                 <style jsx global>{`
                     * {

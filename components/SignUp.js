@@ -12,11 +12,28 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { useToast } from "@chakra-ui/react";
+import { supabaseClient } from "../lib/client";
+import { useState } from "react";
 
 export default function SignUp() {
     const router = useRouter();
     const [show, setShow] = React.useState(false);
+    const [error, setError] = useState(null);
     const handleClick = () => setShow(!show);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const toast = useToast();
+
+    const toastMsg = (desc) => {
+        return toast({
+            title: "Failed",
+            description: desc,
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+        });
+    };
 
     const {
         touched,
@@ -41,16 +58,37 @@ export default function SignUp() {
             name: Yup.string().required("Required"),
             email: Yup.string().email("Invalid email").required("Required"),
             password: Yup.string()
-                // TODO: Will be added during prod
-                // .matches(
-                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                //     "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
-                // )
+                .matches(
+                    /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+                    "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
+                )
                 .required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            router.push("/library");
-            console.log(values);
+            try {
+                const { error } = await supabaseClient.auth.signUp(
+                    {
+                        email: values.email,
+                        password: values.password,
+                    },
+                    {
+                        data: {
+                            first_name: values.name,
+                        },
+                    }
+                );
+                if (error) {
+                    toastMsg(error.message);
+                    console.log(error);
+                } else {
+                    setIsSubmitted(true);
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error.message);
+            } finally {
+                setIsLoading(false);
+            }
         },
     });
 
@@ -61,7 +99,12 @@ export default function SignUp() {
     return (
         <div className="flex flex-col flex-1 justify-between">
             <div>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.name)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">First Name</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -69,7 +112,7 @@ export default function SignUp() {
                             pr="4.5rem"
                             type={"name"}
                             errorBorderColor="red.300"
-                            placeholder="Email"
+                            placeholder="First Name"
                             onChange={handleChange("name")}
                             autoComplete={"name"}
                             value={values.name}
@@ -78,7 +121,12 @@ export default function SignUp() {
                     </InputGroup>
                     <FormErrorMessage>{errors.name}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.email)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -95,7 +143,11 @@ export default function SignUp() {
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4">
+                <FormControl
+                    isInvalid={Boolean(errors.password)}
+                    isRequired
+                    className="my-4"
+                >
                     <FormLabel htmlFor="password">Password</FormLabel>
                     <InputGroup size="md">
                         <Input

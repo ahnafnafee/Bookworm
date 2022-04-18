@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
     Button,
-    Flex,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -12,12 +11,25 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { supabaseClient } from "../lib/client";
+import { useToast } from "@chakra-ui/react";
 
 export default function SignIn() {
     const router = useRouter();
     const [show, setShow] = React.useState(false);
     const [isFocused, setIsFocused] = React.useState(false);
+    const toast = useToast();
     const handleClick = () => setShow(!show);
+
+    const toastMsg = (desc) => {
+        return toast({
+            title: "Failed",
+            description: desc,
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+        });
+    };
 
     const {
         touched,
@@ -39,17 +51,22 @@ export default function SignIn() {
         },
         validationSchema: Yup.object().shape({
             email: Yup.string().email("Invalid email").required("Required"),
-            password: Yup.string()
-                // TODO: Will be added during prod
-                // .matches(
-                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                //     "Password must contain at least 8 characters, one uppercase, one lowercase and one number"
-                // )
-                .required("Required"),
+            password: Yup.string().min(8, "Too small!").required("Required"),
         }),
         async onSubmit(values, formikActions) {
-            router.push("/library");
-            console.log(values);
+            try {
+                const { user, session, error } =
+                    await supabaseClient.auth.signIn({
+                        email: values.email,
+                        password: values.password,
+                    });
+                if (error) {
+                    toastMsg(error.message);
+                    console.log(error);
+                }
+            } catch (error) {
+                console.log("Error", error);
+            }
         },
     });
 
@@ -64,7 +81,12 @@ export default function SignIn() {
     return (
         <div className="flex flex-col flex-1 justify-between">
             <div>
-                <FormControl isRequired className="my-4" size="md">
+                <FormControl
+                    isInvalid={Boolean(errors.email)}
+                    isRequired
+                    className="my-4"
+                    size="md"
+                >
                     <FormLabel htmlFor="email">Email address</FormLabel>
                     <InputGroup size="md">
                         <Input
@@ -83,7 +105,11 @@ export default function SignIn() {
                     </InputGroup>
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired className="my-4">
+                <FormControl
+                    isInvalid={Boolean(errors.password)}
+                    isRequired
+                    className="my-4"
+                >
                     <FormLabel htmlFor="password">Password</FormLabel>
                     <InputGroup size="md">
                         <Input

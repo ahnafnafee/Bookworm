@@ -23,6 +23,8 @@ import {
 } from "@chakra-ui/react";
 import useSWR from "swr";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { supabaseClient } from "../lib/client";
+import { useEffect, useState } from "react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -36,6 +38,39 @@ function Search() {
     const [books, setBooks] = React.useState([]);
     const [value, setValue] = React.useState("");
     const [data, setData] = React.useState([]);
+    const [filterBooks, setFilterBooks] = React.useState([]);
+
+    const user = supabaseClient.auth.user();
+
+    useEffect(() => {
+        if (user) {
+            supabaseClient
+                .from("book_library")
+                .select("g_id")
+                .eq("user_id", user.id)
+                .then(({ data: libData, error: libError }) => {
+                    if (!libError) {
+                        supabaseClient
+                            .from("book_wishlist")
+                            .select("g_id")
+                            .eq("user_id", user.id)
+                            .then(({ data: wishData, error: wishError }) => {
+                                if (!wishError) {
+                                    var tempArr = libData.concat(wishData);
+                                    tempArr.map(function (obj) {
+                                        return obj.g_id;
+                                    });
+                                    setFilterBooks(
+                                        tempArr.map(function (obj) {
+                                            return obj.g_id;
+                                        })
+                                    );
+                                }
+                            });
+                    }
+                });
+        }
+    }, [user]);
 
     const { data: bookData, error } = useSWR(
         `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=RtVynZwGyH7I1VnAZqYiLuxE9QnIRWv4`,
@@ -43,7 +78,9 @@ function Search() {
     );
 
     React.useEffect(() => {
-        if (bookData) setData(bookData.results.books);
+        if (bookData) {
+            setData(bookData.results.books);
+        }
     }, [bookData]);
 
     const toggleFocus = () => {
@@ -59,7 +96,11 @@ function Search() {
                     `https://www.googleapis.com/books/v1/volumes?q=${value}&maxResults=15`
                 ).then((response) =>
                     response.json().then((data) => {
-                        setBooks(data.items);
+                        setBooks(
+                            data.items.filter(
+                                (item) => filterBooks.indexOf(item.id) === -1
+                            )
+                        );
                         setSearched(true);
                     })
                 );
@@ -73,7 +114,11 @@ function Search() {
         ).then((response) =>
             response.json().then((data) => {
                 setSearched(true);
-                setBooks(data.items);
+                setBooks(
+                    data.items.filter(
+                        (item) => filterBooks.indexOf(item.id) === -1
+                    )
+                );
                 setValue(`subject:${subject}`);
             })
         );
